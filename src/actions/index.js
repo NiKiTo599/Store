@@ -1,4 +1,11 @@
-export const GET_CATEGORIES = "GET_CATEGORIES";
+export const GET_CATEGORIES = "GET_CATEGORIES", GET_PRODUCTS = 'GET_PRODUCTS';
+
+function getProducts (products) {
+  return {
+    type: GET_PRODUCTS,
+    products
+  }
+}
 
 function getCategories(items) {
   return {
@@ -27,4 +34,16 @@ export function fetchCategories(url) {
       })
       .then(data => dispatch(getCategories(data)));
   };
+};
+
+export function fetchProducts(url) {
+  return dispatch => {
+    fetch(url)
+      .then(data => data.json())
+      .then(data => {
+        console.log(data)
+        return data
+      })
+      .then(data => dispatch(getProducts(data)));
+  }
 }
