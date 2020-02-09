@@ -1,0 +1,25 @@
+.categories-list {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  align-items: flex-start;
+  width: 90%;
+  margin: 0;
+  padding: 0;
+  .list__main-item {
+    text-align: left;
+    padding-left: 1rem;
+    width: 95%;
+    span {
+      margin-right: 1rem;
+    }
+    .displayNone {
+      display: none;
+    }
+    .sub-list {
+      .sub-list__item {
+
+      }
+    }
+  }
+}

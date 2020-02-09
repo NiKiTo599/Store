@@ -1,0 +1,11 @@
+.container-categories {
+  width: 20%;
+  height: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  background-color: rgba(0, 0, 0, 0.048);
+  ul {
+    list-style: none;
+  }
+}
