@@ -1,16 +1,17 @@
 import React from "react";
 import Layout from "../Layout";
-import NavigationCategories from "./NavCategories/NavigtionCategories";
 
-import './index.scss'
+import "./index.scss";
+
 
 export default class Home extends React.Component {
+  componentDidMount = () => {
+    this.props.getProducts('/home');
+  }
+
   render() {
     return (
       <Layout>
-        <aside className='container-categories'>
-          <NavigationCategories />
-        </aside>
       </Layout>
     );
   }

@@ -1,17 +1,48 @@
-import React, { Component } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
+import logo from "../../data/images/logo.png";
 
-import './index.scss'
+import { InputGroup, FormControl, Button } from "react-bootstrap";
+
+import "./index.scss";
+import NavigtionCategories from "../Home/NavCategories/NavigtionCategories";
 
 const Layout = ({ children }) => (
   <>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
     <header className="header">
       <nav className="container-nav">
-        <Link className="container-nav__link" to="/home">Главная</Link>
-        <Link className="container-nav__link" to="/cat">Категории</Link>
+        <Link className="container-nav__link" to="/home">
+          <img className="nav-logo" src={logo} alt="logo" />
+        </Link>
+        <Link className="container-nav__link" to="/cart">
+          Категории
+        </Link>
       </nav>
     </header>
-    <main>{children}</main>
+    <main className="main">
+      <aside className="container-categories">
+        <NavigtionCategories />
+      </aside>
+      <section className="container-for-main">
+        <InputGroup className="mb-3">
+          <FormControl
+            placeholder="Введите нужный вам товар"
+            aria-label="Введите нужный вам товар"
+            aria-describedby="basic-addon2"
+          />
+          <InputGroup.Append>
+            <Link to="https://vk.com/pol_xx"><Button variant="success">Поиск</Button></Link>
+          </InputGroup.Append>
+        </InputGroup>
+        {children}
+      </section>
+    </main>
     <footer></footer>
   </>
 );

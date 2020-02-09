@@ -1,14 +1,33 @@
 .header {
   width: 100%;
   height: 10vh;
-  background-color: #154718c0;
+  background-color: #218838;
   .container-nav {
     .container-nav__link {
       font-size: 2rem;
     }
+    .nav-logo {
+      height: 10vh;;
+    }
   }
 }
 
-main {
+.main {
   height: 80vh;
+  display: flex;
+  flex-flow: row nowrap;
+  .container-categories {
+    display: flex;
+    flex-flow: column wrap;
+  }
+  .container-for-main {
+    width: 80%;
+    display: flex;
+    flex-flow: column wrap;
+    align-items: center;
+    .input-group {
+      width: 60%;
+      margin-top: 1.5rem;
+    }
+  }
 }
