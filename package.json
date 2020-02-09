@@ -1,0 +1,68 @@
+{
+  "name": "store",
+  "version": "0.1.0",
+  "proxy": "http://localhost:8000",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NiKiTo599/Store.git"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.27",
+    "@fortawesome/free-regular-svg-icons": "^5.12.1",
+    "@fortawesome/free-solid-svg-icons": "^5.12.1",
+    "@fortawesome/react-fontawesome": "^0.1.8",
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.4.0",
+    "@testing-library/user-event": "^7.2.1",
+    "helmet": "^3.21.2",
+    "jsonwebtoken": "^8.5.1",
+    "moment": "^2.24.0",
+    "node-sass": "^4.13.1",
+    "prop-types": "^15.7.2",
+    "query-string": "^6.10.1",
+    "react": "^16.12.0",
+    "react-bootstrap": "^1.0.0-beta.16",
+    "react-chartjs-2": "^2.9.0",
+    "react-dom": "^16.12.0",
+    "react-dropzone": "^10.2.1",
+    "react-helmet": "^5.2.1",
+    "react-redux": "^7.1.3",
+    "react-router": "^5.1.2",
+    "react-router-dom": "^5.1.2",
+    "react-scripts": "3.3.1",
+    "react-scroll": "^1.7.16",
+    "react-stripe-elements": "^6.0.1",
+    "react-tagsinput": "^3.19.0",
+    "redux": "^4.0.5",
+    "redux-form": "^8.3.0",
+    "redux-form-material-ui": "^4.3.4",
+    "redux-thunk": "^2.3.0",
+    "sitemap": "^5.1.0",
+    "stripe": "^8.14.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "resolutions": {
+    "@babel/runtime": "7.0.0-beta.46"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
