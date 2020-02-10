@@ -7,13 +7,13 @@
       font-size: 2rem;
     }
     .nav-logo {
-      height: 10vh;;
+      height: 10vh;
     }
   }
 }
 
 .main {
-  height: 80vh;
+  min-height: 80vh;
   display: flex;
   flex-flow: row nowrap;
   .container-categories {
@@ -23,7 +23,7 @@
   .container-for-main {
     width: 80%;
     display: flex;
-    flex-flow: column wrap;
+    flex-flow: column nowrap;
     align-items: center;
     .input-group {
       width: 60%;

@@ -1,4 +1,4 @@
-import { GET_CATEGORIES, GET_PRODUCTS } from "./../actions";
+import { GET_CATEGORIES, GET_PRODUCTS, GET_IMAGES } from "./../actions";
 
 const initialState = {};
 

@@ -1,9 +1,10 @@
 .categories-list {
   display: flex;
   flex-flow: column wrap;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: flex-start;
   width: 90%;
+  min-height: 80vh;
   margin: 0;
   padding: 0;
   .list__main-item {

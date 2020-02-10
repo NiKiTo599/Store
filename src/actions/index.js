@@ -1,16 +1,25 @@
-export const GET_CATEGORIES = "GET_CATEGORIES", GET_PRODUCTS = 'GET_PRODUCTS';
+export const GET_CATEGORIES = "GET_CATEGORIES",
+  GET_PRODUCTS = "GET_PRODUCTS",
+  GET_IMAGES = "GET_IMAGES";
 
-function getProducts (products) {
+function getProducts(products) {
   return {
     type: GET_PRODUCTS,
     products
-  }
+  };
 }
 
 function getCategories(items) {
   return {
     type: GET_CATEGORIES,
     items
+  };
+}
+
+function getImages(img) {
+  return {
+    type: GET_IMAGES,
+    img
   };
 }
 
@@ -34,16 +43,12 @@ export function fetchCategories(url) {
       })
       .then(data => dispatch(getCategories(data)));
   };
-};
+}
 
 export function fetchProducts(url) {
   return dispatch => {
     fetch(url)
       .then(data => data.json())
-      .then(data => {
-        console.log(data)
-        return data
-      })
       .then(data => dispatch(getProducts(data)));
-  }
+  };
 }
