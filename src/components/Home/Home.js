@@ -8,6 +8,8 @@ import { fetchProducts } from "./../../actions";
 
 import "./index.scss";
 import { Row, Container, Col } from "react-bootstrap";
+import Products from "../Products/Product";
+import SortSection from "./SortSection/SortSection";
 
 class Home extends React.Component {
   constructor(props) {
@@ -59,10 +61,16 @@ class Home extends React.Component {
               </p>
             </Col>
           </Row>
+          <Row>
+            <Col>
+              <SortSection products={this.props.products}/>
+            </Col>
+          </Row>
           {this.props.products
             ? this.props.products.map(item => (
                 <Row className="justify-content-center">
                   <Col xl={9}>
+                    <Products item={item}/>
                   </Col>
                 </Row>
               ))

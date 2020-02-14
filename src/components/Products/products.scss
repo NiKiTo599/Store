@@ -1,0 +1,31 @@
+.card-of-product {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 3px solid #218838;
+  border-bottom: 3px solid #218838;
+  margin: 1rem 0;
+  min-height: 18rem;
+  padding: 1rem 0;
+  .card-of-product__left {
+    display: flex;
+    flex-flow: column nowrap;
+    .title-of-product {
+      font-size: 1.5rem;
+    }
+    .image-of-product {
+      width: 12rem;
+    }
+  }
+  .card-of-product__right {
+    display: flex;
+    flex-flow: column nowrap;
+    .price-of-product {
+      font-size: 1.5rem;
+      i {
+        color: #218838;
+      }
+    }
+  }
+}

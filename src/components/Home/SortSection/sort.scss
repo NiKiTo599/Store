@@ -1,0 +1,15 @@
+.container-for-sort {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: flex-start;
+  background-color: #F3F3F3;
+  padding: 1.5rem;
+  .sort-attribute {
+    color: #218838;
+    font-weight: 700;;
+    span {
+      color: #464d47;
+      margin: 0 1rem;
+    }
+  }
+}

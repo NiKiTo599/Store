@@ -1,23 +1,19 @@
 import React from "react";
-import { Route, Switch, Redirect, withRouter } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
 
-import logo from "./logo.svg";
 import "./App.css";
-import NavigtionCategories from "./components/Home/NavCategories/NavigtionCategories";
-import Home from './components/Home/Home'
-import Products from "./components/Products";
+import Home from "./components/Home/Home";
 import Cart from "./components/Cart/Cart";
 
 export default class App extends React.Component {
   render() {
     const { history } = this.props;
-    return <div className="App">
+    return (
       <Switch>
-        <Route history={history} path='/cart' component={Cart}/>
-        <Route history={history} path='/home' component={Home} />
-        <Route history={history} path='/products' component={Products} />
-        <Redirect from='/' to='/home'/>
+        <Route history={history} path="/cart" component={Cart} />
+        <Route history={history} path="/home" component={Home} />
+        <Redirect from="/" to="/home" />
       </Switch>
-    </div>;
+    );
   }
 }
