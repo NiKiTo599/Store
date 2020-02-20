@@ -8,19 +8,25 @@ import { fetchProducts } from "./../../actions";
 
 import "./index.scss";
 import { Row, Container, Col } from "react-bootstrap";
-import Products from "../Products/Product";
+import ProductList from "../Products/ProductList";
+import PageList from "../Products/PageList";
 import SortSection from "./SortSection/SortSection";
 
 class Home extends React.Component {
   constructor(props) {
     super(props);
-    this.props.getProducts(
-      this.props.location.pathname + this.props.location.search
-    );
+    if (this.props.location.search) {
+      this.props.getProducts(
+        this.props.location.pathname + this.props.location.search
+      );
+    }
   }
 
   componentDidUpdate = prevProps => {
-    if (this.props.location.search !== prevProps.location.search) {
+    if (
+      this.props.location.search &&
+      this.props.location.search !== prevProps.location.search
+    ) {
       this.props.getProducts(
         this.props.location.pathname + this.props.location.search
       );
@@ -49,32 +55,30 @@ class Home extends React.Component {
 
   render() {
     const { category, subCategory } = this.getCategoryAndSubCategory();
+    console.log(category)
     return (
       <Layout>
         <Container>
-          <Row>
-            <Col xl={12}>
-              <p className="title-of-category">
-                <span>{category}</span>
-                <FontAwesomeIcon icon={faAngleDoubleRight} />{" "}
-                <span>{subCategory}</span>
-              </p>
-            </Col>
-          </Row>
-          <Row>
-            <Col>
-              <SortSection products={this.props.products}/>
-            </Col>
-          </Row>
-          {this.props.products
-            ? this.props.products.map(item => (
-                <Row className="justify-content-center">
-                  <Col xl={9}>
-                    <Products item={item}/>
-                  </Col>
-                </Row>
-              ))
-            : null}
+          {this.props.location.search ? (
+            <>
+              <Row>
+                <Col xl={12}>
+                  <p className="title-of-category">
+                    <span>{category}</span>
+                    <FontAwesomeIcon icon={faAngleDoubleRight} />{" "}
+                    <span>{subCategory}</span>
+                  </p>
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <SortSection products={this.props.products} />
+                </Col>
+              </Row>
+              <ProductList products={this.props.products} />
+              <PageList location={this.props.location} />
+            </>
+          ) : null}
         </Container>
       </Layout>
     );

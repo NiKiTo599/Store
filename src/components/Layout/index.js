@@ -6,6 +6,7 @@ import { InputGroup, FormControl, Button } from "react-bootstrap";
 
 import "./index.scss";
 import NavigtionCategories from "../Home/NavCategories/NavigtionCategories";
+import Search from "../Search/Search";
 
 const Layout = ({ children }) => (
   <>
@@ -30,16 +31,7 @@ const Layout = ({ children }) => (
         <NavigtionCategories />
       </aside>
       <section className="container-for-main">
-        <InputGroup className="mb-3">
-          <FormControl
-            placeholder="Введите нужный вам товар"
-            aria-label="Введите нужный вам товар"
-            aria-describedby="basic-addon2"
-          />
-          <InputGroup.Append>
-            <Link to="https://vk.com/pol_xx"><Button variant="success">Поиск</Button></Link>
-          </InputGroup.Append>
-        </InputGroup>
+        <Search />
         {children}
       </section>
     </main>

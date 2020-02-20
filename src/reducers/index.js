@@ -1,4 +1,4 @@
-import { GET_CATEGORIES, GET_PRODUCTS, GET_IMAGES } from "./../actions";
+import { GET_CATEGORIES, GET_PRODUCTS, GET_COUNT } from "./../actions";
 
 const initialState = {};
 
@@ -10,6 +10,8 @@ export function reducer(state = initialState, action) {
       });
     case GET_PRODUCTS:
       return Object.assign({}, state, { products: action.products });
+    case GET_COUNT:
+      return Object.assign({}, state, { count: action.item });
     default:
       return state;
   }

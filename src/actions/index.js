@@ -1,6 +1,5 @@
 export const GET_CATEGORIES = "GET_CATEGORIES",
-  GET_PRODUCTS = "GET_PRODUCTS",
-  GET_IMAGES = "GET_IMAGES";
+  GET_PRODUCTS = "GET_PRODUCTS", GET_COUNT = 'GET_COUNT';
 
 function getProducts(products) {
   return {
@@ -16,12 +15,21 @@ function getCategories(items) {
   };
 }
 
-function getImages(img) {
+function getCount(item) {
   return {
-    type: GET_IMAGES,
-    img
+    type: GET_COUNT,
+    item
   };
 }
+
+export function fetchCount(url) {
+  return dispatch => {
+    fetch(url)
+      .then(data => data.json())
+      .then(data => dispatch(getCount(data)))
+  }
+}
+
 
 export function fetchCategories(url) {
   return dispatch => {
