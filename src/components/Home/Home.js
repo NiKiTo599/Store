@@ -38,8 +38,9 @@ class Home extends React.Component {
     const { categories, location } = this.props;
     for (let key in categories) {
       if (!category) {
+        let end = location.search.indexOf('page') - 1;
         let reason = categories[key].find(
-          elem => elem._id === location.search.slice(7)
+          elem => elem._id === location.search.slice(7, end)
         );
         if (reason) {
           category = key;
@@ -55,7 +56,6 @@ class Home extends React.Component {
 
   render() {
     const { category, subCategory } = this.getCategoryAndSubCategory();
-    console.log(category)
     return (
       <Layout>
         <Container>

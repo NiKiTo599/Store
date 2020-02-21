@@ -21,17 +21,17 @@ class NavigtionCategories extends React.Component {
       const keys = Object.keys(this.props.categories);
       return keys.length > 1 ? (
         <ul className="categories-list">
-          {keys.map(item => (
-            <li className="list__main-item" onClick={this.handleClick}>
-              <span>{item}</span>
-              <FontAwesomeIcon icon={faAngleDown} />
-              <ul
+          {keys.map((item, idx) => (
+            <li key={idx} className="list__main-item" onClick={this.handleClick}>
+              <span >{item}</span>
+              <FontAwesomeIcon  icon={faAngleDown} />
+              <ul 
                 className="sub-list displayNone"
                 onClick={e => e.stopPropagation()}
               >
-                {this.props.categories[item].map(subItem => (
-                  <li className="sub-list__item">
-                    <Link to={`/home?query=${subItem._id}&page=1`}>
+                {this.props.categories[item].map((subItem, idx) => (
+                  <li key={idx} className="sub-list__item">
+                    <Link key={idx} to={`/home?query=${subItem._id}&page=1`}>
                       {subItem.name}
                     </Link>
                   </li>

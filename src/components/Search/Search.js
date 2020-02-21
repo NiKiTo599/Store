@@ -5,18 +5,30 @@ import AutoSuggest from "react-autosuggest";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
-import './search.scss'
+import "./search.scss";
 
 const getSuggestionValue = suggestion => suggestion.name;
 
-const rendersuggestion = suggestion => <div>{suggestion.name}</div>;
+const rendersuggestion = suggestion => (
+  <div className="container-for-suggestion">
+    <img
+      className="image-of-product"
+      src={require(`../../data/images/${suggestion.category_id}/${suggestion.images[0].filename}.png`)}
+      alt=""
+    />
+    <div className="suggest-info">
+      <p className="suggestion-title">{suggestion.name}</p>
+      <p className="suggestion-price">{suggestion.regular_price}</p>
+    </div>
+  </div>
+);
 
 const renderInputComponent = inputProps => (
   <div className="container-for-search-bar">
-    <input {...inputProps} className="search-bar"/>
-    <FontAwesomeIcon icon={faSearch}/>
+    <input {...inputProps} className="search-bar" />
+    <FontAwesomeIcon icon={faSearch} />
   </div>
-)
+);
 
 class Search extends React.Component {
   constructor(props) {
@@ -36,7 +48,6 @@ class Search extends React.Component {
   };
 
   getSuggestions = value => {
-    console.log(this.props.products);
     const inputLength = value.trim().toLowerCase().length;
     return inputLength === 0 || !this.props.products ? [] : this.props.products;
   };

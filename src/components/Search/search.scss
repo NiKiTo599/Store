@@ -8,6 +8,35 @@
     border-radius: 2rem;
     outline: none;
     padding: 1rem;
+    position: relative;
   }
-  
+  svg {
+    font-size: 1.5rem;
+    color: #218838;
+    position: absolute;
+    right: 21%;
+    top: 17%;
+  }
+}
+
+.container-for-suggestion {
+  display: flex;
+  margin: .5rem 0;
+  align-items: center;
+  img {
+    width: 6rem;
+    height: auto;
+    margin-right: 1rem;
+  }
+  .suggest-info {
+    display: flex;
+    flex-flow: column wrap;
+    .suggestion-title {
+      font-size: 1.5rem;
+    }
+    .suggestion-price {
+      font-size: 1.5rem;
+      color: #218838;
+    }
+  }
 }

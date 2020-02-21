@@ -25,8 +25,8 @@ class SortSection extends React.Component {
       const keys = Object.keys(allAtributesOfProducts);
       return <div className="container-for-sort">
         {
-          keys.map(elem => (
-          <p className="sort-attribute">{elem}: {allAtributesOfProducts[elem].map(item => <span>{item}</span>)}</p>
+          keys.map((elem, index) => (
+          <p key={index} className="sort-attribute">{elem}: {allAtributesOfProducts[elem].map((item, index) => <span key={index}>{item}</span>)}</p>
           ))
         }
       </div>;
