@@ -12,7 +12,7 @@ class ProductList extends React.Component {
           ? this.props.products.map((item, index) => (
               <Row key={index} className="justify-content-center">
                 <Col key={index} xl={9}>
-                  <Products key={index}  index={index} item={item} />
+                  <Products key={index} item={item} />
                 </Col>
               </Row>
             ))

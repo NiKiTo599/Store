@@ -1,5 +1,5 @@
 export const GET_CATEGORIES = "GET_CATEGORIES",
-  GET_PRODUCTS = "GET_PRODUCTS", GET_COUNT = 'GET_COUNT';
+  GET_PRODUCTS = "GET_PRODUCTS", GET_COUNT = 'GET_COUNT', GET_ONE_PRODUCT="GET_ONE_PRODUCT";
 
 function getProducts(products) {
   return {
@@ -18,6 +18,13 @@ function getCategories(items) {
 function getCount(item) {
   return {
     type: GET_COUNT,
+    item
+  };
+}
+
+function getOneProduct (item) {
+  return {
+    type: GET_ONE_PRODUCT,
     item
   };
 }
@@ -58,5 +65,13 @@ export function fetchProducts(url) {
     fetch(url)
       .then(data => data.json())
       .then(data => dispatch(getProducts(data)));
+  };
+}
+
+export function fetchOneProduct (url) {
+  return dispatch => {
+    fetch(url)
+      .then(data => data.json())
+      .then(data => dispatch(getOneProduct(data)));
   };
 }

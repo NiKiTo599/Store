@@ -1,15 +1,31 @@
 import React from 'react'
 
 import { connect } from "react-redux";
-import { fetchProducts } from "./../../actions";
+import { fetchOneProduct } from "./../../actions";
 import Layout from '../Layout';
 
 class ProductPage extends React.Component {
+  constructor(props) {
+    super(props);
+    this.props.getOneProduct(this.props.location.pathname + this.props.location.search)
+  }
+
+  componentDidUpdate = prevProps => {
+    if (
+      this.props.location.search &&
+      this.props.location.search !== prevProps.location.search
+    ) {
+      this.props.getOneProduct(
+        this.props.location.pathname + this.props.location.search
+      );
+    }
+  };
 
   render() {
+    const {currentProduct} = this.props;
     console.log(this.props)
     return (<Layout>
-      <div></div>
+      <div>{currentProduct}</div>
     </Layout>)
   }
 }
@@ -17,13 +33,14 @@ class ProductPage extends React.Component {
 const mapStateToProps = ({ reducer }) => {
   return {
     products: reducer.products,
-    categories: reducer.categories
+    categories: reducer.categories,
+    currentProduct: reducer.currentProduct
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    getProducts: url => dispatch(fetchProducts(url))
+    getOneProduct: url => dispatch(fetchOneProduct(url))
   };
 };
 
