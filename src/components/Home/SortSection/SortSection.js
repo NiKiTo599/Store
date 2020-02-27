@@ -1,12 +1,25 @@
 import React from "react";
 
-import './sort.scss'
+import { connect } from "react-redux";
+import { fetchAttributes } from "./../../../actions";
+
+import "./sort.scss";
 
 class SortSection extends React.Component {
+  constructor(props) {
+    super(props);
+    this.path = '/productattributes'
+    this.props.getAttributes(this.path + this.props.url);
+  }
+  componentDidUpdate = prevProps => {
+    if (this.props.url !== prevProps.url) {
+      this.props.getProducts(this.path + this.props.url);
+    }
+  };
   getAtributes = () => {
-    const { products } = this.props;
+    const { attributes } = this.props;
     const allAtributesOfProducts = {};
-    products.forEach(elem => {
+    attributes.forEach(elem => {
       elem.attributes.reduce((acc, cur) => {
         if (cur.name === "Артикул") return acc;
         if (cur.name in acc) {
@@ -20,20 +33,37 @@ class SortSection extends React.Component {
     return allAtributesOfProducts;
   };
   render() {
-    if (this.props.products) {
+    if (this.props.attributes) {
       const allAtributesOfProducts = this.getAtributes();
       const keys = Object.keys(allAtributesOfProducts);
-      return <div className="container-for-sort">
-        {
-          keys.map((elem, index) => (
-          <p key={index} className="sort-attribute">{elem}: {allAtributesOfProducts[elem].map((item, index) => <span key={index}>{item}</span>)}</p>
-          ))
-        }
-      </div>;
+      return (
+        <div className="container-for-sort">
+          {keys.map((elem, index) => (
+            <p key={index} className="sort-attribute">
+              {elem}:{" "}
+              {allAtributesOfProducts[elem].map((item, index) => (
+                <span key={index}>{item}</span>
+              ))}
+            </p>
+          ))}
+        </div>
+      );
     } else {
       return null;
     }
   }
 }
 
-export default SortSection;
+const mapStateToProps = ({ reducer }) => {
+  return {
+    attributes: reducer.attributes
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    getAttributes: url => dispatch(fetchAttributes(url))
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SortSection);

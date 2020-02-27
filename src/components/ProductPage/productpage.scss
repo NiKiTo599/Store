@@ -1,0 +1,33 @@
+.product-page__right-container_up {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: space-around;
+  border-radius: 1rem;
+  background-color: #f3f3f3;
+  height: 35%;
+  padding: 1rem;
+  .price-of-product {
+    font-size: 2rem;
+    i {
+      color: #218838;
+    }
+  }
+}
+.product-page__right-container_down {
+  margin-top: 3%;
+  border-radius: 1rem;
+  padding: 1rem;
+  background-color: #f3f3f3;
+}
+
+// Characteristic
+
+.characteristic_container {
+  .list-group-horizontal {
+    .list-group-item {
+      width: 30%;
+      text-align: center;
+    }
+  } 
+}

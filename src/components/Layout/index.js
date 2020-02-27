@@ -22,7 +22,7 @@ const Layout = ({ children }) => (
           <img className="nav-logo" src={logo} alt="logo" />
         </Link>
         <Link className="container-nav__link" to="/cart">
-          Категории
+          Корзина
         </Link>
       </nav>
     </header>

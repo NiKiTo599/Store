@@ -1,5 +1,8 @@
 export const GET_CATEGORIES = "GET_CATEGORIES",
-  GET_PRODUCTS = "GET_PRODUCTS", GET_COUNT = 'GET_COUNT', GET_ONE_PRODUCT="GET_ONE_PRODUCT";
+  GET_PRODUCTS = "GET_PRODUCTS",
+  GET_COUNT = "GET_COUNT",
+  GET_ONE_PRODUCT = "GET_ONE_PRODUCT",
+  GET_ATTRIBUTES = "GET_ATTRIBUTES";
 
 function getProducts(products) {
   return {
@@ -22,10 +25,17 @@ function getCount(item) {
   };
 }
 
-function getOneProduct (item) {
+function getOneProduct(item) {
   return {
     type: GET_ONE_PRODUCT,
     item
+  };
+}
+
+function getAttributes(attr) {
+  return {
+    type: "GET_ATTRIBUTES",
+    attr
   };
 }
 
@@ -33,10 +43,9 @@ export function fetchCount(url) {
   return dispatch => {
     fetch(url)
       .then(data => data.json())
-      .then(data => dispatch(getCount(data)))
-  }
+      .then(data => dispatch(getCount(data)));
+  };
 }
-
 
 export function fetchCategories(url) {
   return dispatch => {
@@ -68,10 +77,19 @@ export function fetchProducts(url) {
   };
 }
 
-export function fetchOneProduct (url) {
+export function fetchOneProduct(url) {
   return dispatch => {
     fetch(url)
       .then(data => data.json())
       .then(data => dispatch(getOneProduct(data)));
+  };
+}
+
+export function fetchAttributes(url) {
+  console.log(url)
+  return dispatch => {
+    fetch(url)
+      .then(data => data.json())
+      .then(data => dispatch(getAttributes(data)));
   };
 }
