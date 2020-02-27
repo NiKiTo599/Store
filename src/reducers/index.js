@@ -8,7 +8,7 @@ import {
 import { ADD_TO_CART } from "../actions/actionsCart";
 
 const initialState = {
-  cart: []
+  cart: sessionStorage.getItem("cart") || []
 };
 
 export function reducer(state = initialState, action) {
@@ -32,12 +32,18 @@ export function reducer(state = initialState, action) {
   }
 }
 
-export function reducerCart (state = initialState, action) {
+export function reducerCart(state = initialState, action) {
   switch (action.type) {
-    case ADD_TO_CART: 
-      const arr = state.cart.slice();
-      arr.push(action.item)
-      console.log(arr)
+    case ADD_TO_CART:
+      let arr;
+      if (typeof state.cart === "string") {
+        arr = JSON.parse(state.cart);
+      } else {
+        arr = state.cart.slice();
+      }
+      arr.push(action.item);
+      sessionStorage.setItem("cart", JSON.stringify(arr));
+      console.log(arr);
       return Object.assign({}, state, { cart: arr });
     default:
       return state;

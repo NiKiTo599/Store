@@ -1,8 +1,12 @@
 .container_cart {
-  .cart_item-of-product {
-
+  .cart__item-of-product {
+    display: flex;
+    .item-of-product__img {
+      width: 5rem;
+    }
+    .item-of-product__title {
+    }
   }
-  .cart_title {
-    
+  .cart__title {
   }
 }
