@@ -72,7 +72,7 @@ class Home extends React.Component {
               </Row>
               <Row>
                 <Col>
-                  <SortSection products={this.props.products} />
+                  <SortSection url={this.props.location.search} />
                 </Col>
               </Row>
               <ProductList products={this.props.products} />

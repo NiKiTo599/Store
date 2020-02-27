@@ -1,7 +1,9 @@
 import React from "react";
 import "./products.scss";
+import "../../../node_modules/react-image-gallery/styles/scss/image-gallery.scss"
 import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import ButtonCart from "../ProductPage/ButtonCart";
 
 export default class Products extends React.Component {
   render() {
@@ -23,7 +25,7 @@ export default class Products extends React.Component {
             {item.regular_price}
             <i> б.р.</i>
           </p>
-          <Button variant="success">Добавить в карзину</Button>
+          <ButtonCart currentProduct={item}/>
         </div>
       </div>
     );
