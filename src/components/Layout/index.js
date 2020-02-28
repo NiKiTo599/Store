@@ -2,8 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 import logo from "../../data/images/logo.png";
 
-import { InputGroup, FormControl, Button } from "react-bootstrap";
-
 import "./index.scss";
 import NavigtionCategories from "../Home/NavCategories/NavigtionCategories";
 import Search from "../Search/Search";

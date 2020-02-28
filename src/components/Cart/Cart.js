@@ -7,23 +7,45 @@ import { addToCart } from "./../../actions/actionsCart";
 import "./index.scss";
 import TableOfProducts from "./TableOfProducts";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrashAlt, faCheckSquare } from "@fortawesome/free-solid-svg-icons";
+import { InputGroup } from "react-bootstrap";
+
 class Cart extends React.Component {
+  state = {
+    checkAll: false
+  };
+
   render() {
     return (
       <Layout>
         <div className="container_cart">
           <h2 className="cart__title">Корзина</h2>
-          {this.props.cart.map((item, idx) => (
-            <div key={idx} className="cart__item-of-product">
-              <img
-                className="item-of-product__img"
-                src={require(`../../data/images/${item.category_id}/${item.images[0].filename}.png`)}
-                alt=""
-              />
-              <h4 className="item-of-product__title">{item.name}</h4>
-            </div>
-          ))}
-          <TableOfProducts />
+          <InputGroup className="xl-1 mb-3">
+            <InputGroup.Prepend>
+              <InputGroup.Text>
+                <FontAwesomeIcon icon={faTrashAlt} />
+              </InputGroup.Text>
+            </InputGroup.Prepend>
+            <InputGroup.Text>Удаление из корзины</InputGroup.Text>
+          </InputGroup>
+          <InputGroup
+            onClick={() => {
+              this.setState({ checkAll: !this.state.checkAll });
+            }}
+            className="xl-1 mb-3"
+          >
+            <InputGroup.Prepend>
+              <InputGroup.Text>
+                <FontAwesomeIcon icon={faCheckSquare} />
+              </InputGroup.Text>
+            </InputGroup.Prepend>
+            <InputGroup.Text>Выделить все товары</InputGroup.Text>
+          </InputGroup>
+          <TableOfProducts
+            checkAll={this.state.checkAll}
+            cart={this.props.cart}
+          />
         </div>
       </Layout>
     );

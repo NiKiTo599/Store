@@ -13,10 +13,10 @@ class SortSection extends React.Component {
   }
   componentDidUpdate = prevProps => {
     if (this.props.url !== prevProps.url) {
-      this.props.getProducts(this.path + this.props.url);
+      this.props.getAttributes(this.path + this.props.url);
     }
   };
-  getAtributes = () => {
+  getAttributesFromData = () => {
     const { attributes } = this.props;
     const allAtributesOfProducts = {};
     attributes.forEach(elem => {
@@ -34,7 +34,7 @@ class SortSection extends React.Component {
   };
   render() {
     if (this.props.attributes) {
-      const allAtributesOfProducts = this.getAtributes();
+      const allAtributesOfProducts = this.getAttributesFromData();
       const keys = Object.keys(allAtributesOfProducts);
       return (
         <div className="container-for-sort">

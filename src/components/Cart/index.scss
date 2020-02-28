@@ -1,6 +1,16 @@
 .container_cart {
+  .input-group-prepend {
+    background-color: var(--dark);
+  }
+  .input-group-text {
+    color: var(--success);
+    border: var(--success) solid 2px;
+    background-color: transparent;
+  }
   .cart__item-of-product {
     display: flex;
+    justify-content: space-between;
+    align-items: center;
     .item-of-product__img {
       width: 5rem;
     }
@@ -8,5 +18,28 @@
     }
   }
   .cart__title {
+  }
+}
+
+.react-numeric-input {
+  width: 50%;
+  input {
+    width: 100%;
+    outline: var(--success) solid 2px;
+    background-color: transparent;
+  }
+}
+
+//For table\
+
+.table-cart td {
+  vertical-align: middle !important;
+  text-align: center;
+  .input-group-text {
+    background-color: transparent !important;
+    border: none !important;
+    input {
+      background-color: var(--success) !important;
+    }
   }
 }

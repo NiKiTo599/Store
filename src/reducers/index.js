@@ -8,7 +8,9 @@ import {
 import { ADD_TO_CART } from "../actions/actionsCart";
 
 const initialState = {
-  cart: sessionStorage.getItem("cart") || []
+  cart: sessionStorage.getItem("cart")
+    ? JSON.parse(sessionStorage.getItem("cart"))
+    : []
 };
 
 export function reducer(state = initialState, action) {
@@ -36,11 +38,7 @@ export function reducerCart(state = initialState, action) {
   switch (action.type) {
     case ADD_TO_CART:
       let arr;
-      if (typeof state.cart === "string") {
-        arr = JSON.parse(state.cart);
-      } else {
-        arr = state.cart.slice();
-      }
+      arr = state.cart.slice();
       arr.push(action.item);
       sessionStorage.setItem("cart", JSON.stringify(arr));
       console.log(arr);

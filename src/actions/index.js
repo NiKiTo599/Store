@@ -86,7 +86,6 @@ export function fetchOneProduct(url) {
 }
 
 export function fetchAttributes(url) {
-  console.log(url)
   return dispatch => {
     fetch(url)
       .then(data => data.json())
