@@ -12,7 +12,6 @@ class TableOfProducts extends React.Component {
 
   shouldCheckAll = () => {
     const checkBox = document.querySelectorAll(".checkbox_product");
-    console.log(checkBox)
     if (this.props.checkAll) {
       for (let i = 0; i < checkBox.length; i++) {
         checkBox[i].checked = true;
@@ -43,7 +42,12 @@ class TableOfProducts extends React.Component {
             <tr index={idx} key={idx} onClick={this.makeProductActive}>
               <td>
                 <InputGroup>
-                  <InputGroup.Checkbox className="checkbox_product" variant="success" onClick={e => e.stopPropagation()} />
+                  <InputGroup.Checkbox
+                    index={idx}
+                    className="checkbox_product"
+                    variant="success"
+                    onClick={e => e.stopPropagation()}
+                  />
                 </InputGroup>
               </td>
               <td>

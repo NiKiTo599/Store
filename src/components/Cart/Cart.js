@@ -2,7 +2,7 @@ import React from "react";
 import Layout from "../Layout";
 
 import { connect } from "react-redux";
-import { addToCart } from "./../../actions/actionsCart";
+import { addToCart, deleteFromCart } from "./../../actions/actionsCart";
 
 import "./index.scss";
 import TableOfProducts from "./TableOfProducts";
@@ -13,7 +13,20 @@ import { InputGroup } from "react-bootstrap";
 
 class Cart extends React.Component {
   state = {
-    checkAll: false
+    checkAll: false,
+    checkIndexes: []
+  };
+
+  shouldDelete = () => {
+    const checkBox = document.querySelectorAll(".checkbox_product");
+    const arrayForIndexesForDelete = [];
+    for (let i = 0; i < checkBox.length; i++) {
+      if (checkBox[i].checked) {
+        arrayForIndexesForDelete.push(checkBox[i].getAttribute("index"));
+      }
+    }
+    console.log(arrayForIndexesForDelete)
+    this.props.deleteFromCart(arrayForIndexesForDelete)
   };
 
   render() {
@@ -21,7 +34,7 @@ class Cart extends React.Component {
       <Layout>
         <div className="container_cart">
           <h2 className="cart__title">Корзина</h2>
-          <InputGroup className="xl-1 mb-3">
+          <InputGroup onClick={this.shouldDelete} className="xl-1 mb-3">
             <InputGroup.Prepend>
               <InputGroup.Text>
                 <FontAwesomeIcon icon={faTrashAlt} />
@@ -61,7 +74,8 @@ const mapStateToProps = ({ reducer, reducerCart }) => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    addToCart: product => dispatch(addToCart(product))
+    addToCart: product => dispatch(addToCart(product)),
+    deleteFromCart: productIndex => dispatch(deleteFromCart(productIndex))
   };
 };
 

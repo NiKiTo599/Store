@@ -8,7 +8,7 @@ import "./sort.scss";
 class SortSection extends React.Component {
   constructor(props) {
     super(props);
-    this.path = '/productattributes'
+    this.path = "/productattributes";
     this.props.getAttributes(this.path + this.props.url);
   }
   componentDidUpdate = prevProps => {
@@ -30,8 +30,19 @@ class SortSection extends React.Component {
         return acc;
       }, allAtributesOfProducts);
     });
-    return allAtributesOfProducts;
+    return this.sortAttributes(allAtributesOfProducts);
   };
+
+  sortAttributes = objectOfAttributes => {
+    const sortedObjectOfAttributes = { ...objectOfAttributes };
+    for (let key in objectOfAttributes) {
+      sortedObjectOfAttributes[key].sort((a, b) =>
+        a < b ? -1 : a > b ? 1 : 0
+      );
+    }
+    return sortedObjectOfAttributes;
+  };
+
   render() {
     if (this.props.attributes) {
       const allAtributesOfProducts = this.getAttributesFromData();
