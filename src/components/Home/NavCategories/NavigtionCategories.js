@@ -31,7 +31,7 @@ class NavigtionCategories extends React.Component {
               >
                 {this.props.categories[item].map((subItem, idx) => (
                   <li key={idx} className="sub-list__item">
-                    <Link key={idx} to={`/home?query=${subItem._id}&page=1`}>
+                    <Link key={idx} to={`/home?query=${subItem._id}&page=1&selection=false`}>
                       {subItem.name}
                     </Link>
                   </li>

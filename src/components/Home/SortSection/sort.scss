@@ -6,10 +6,16 @@
   padding: 1.5rem;
   .sort-attribute {
     color: #218838;
-    font-weight: 700;;
+    font-weight: 700;
     span {
       color: #464d47;
       margin: 0 1rem;
+      padding: .2rem;
+      border-radius: 5px;
+    }
+    .highlight {
+      color: #fff;
+      background-color: var(--success);
     }
   }
 }
