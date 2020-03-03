@@ -31,7 +31,8 @@ function getOnlySelectionProducts(products) {
   };
 }
 
-export function fetchOnlySelectionProducts(url) {
+export function fetchOnlySelectionProducts(url, fields) {
+  console.log(fields, JSON.stringify(fields))
   return dispatch => {
     fetch(url, {
       method: "POST",
@@ -39,7 +40,7 @@ export function fetchOnlySelectionProducts(url) {
         Accept: "application/json",
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({ a: 1, b: "Textual content" })
+      body: JSON.stringify(fields)
     })
       .then(data => data.json())
       .then(data => dispatch(getOnlySelectionProducts(data)));

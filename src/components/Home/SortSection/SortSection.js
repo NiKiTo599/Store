@@ -76,11 +76,11 @@ class SortSection extends React.Component {
   };
 
   handleClickButton = () => {
-    this.props.fetchOnlySelectionProducts(`/selection`)
+    this.props.fetchOnlySelectionProducts(`/home`, this.props.attributesForSearch);
   }
 
   render() {
-    console.log(this.props.attributesForSearch);
+    console.log(this.props.attributesForSearch)
     if (this.props.attributes) {
       const allAtributesOfProducts = this.getAttributesFromData();
       const keys = Object.keys(allAtributesOfProducts);
@@ -123,7 +123,7 @@ const mapDispatchToProps = dispatch => {
     highlightAttribute: attr => dispatch(highlightAttribute(attr)),
     unHighlightAttribute: attr => dispatch(unHighlightAttribute(attr)),
     deleteOneField: field => dispatch(deleteOneField(field)),
-    fetchOnlySelectionProducts: (url) => dispatch(fetchOnlySelectionProducts(url))
+    fetchOnlySelectionProducts: (url, fields) => dispatch(fetchOnlySelectionProducts(url, fields))
   };
 };
 
