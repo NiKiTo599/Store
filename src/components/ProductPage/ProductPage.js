@@ -1,9 +1,14 @@
 import React from "react";
 import { Button, Row, Col, Form, Tab, ListGroup } from "react-bootstrap";
+import queryString from "query-string";
 
 import { connect } from "react-redux";
-import { fetchOneProduct } from "./../../actions";
+import { getOneProduct } from "./../../actions";
 import Layout from "../Layout";
+
+import { graphql } from "react-apollo";
+import { compose } from "recompose";
+import { getOneProducts } from "./queries";
 
 import "./productpage.scss";
 import ReactImageGallery from "react-image-gallery";
@@ -13,12 +18,31 @@ import FormForSaleByClick from "./IsExist";
 import Description from "./Description";
 import Characteristic from "./Characteristic";
 
+const graphQLOneProduct = graphql(getOneProducts, {
+  options: args => {
+    const { id } = args;
+    return {
+      variables: {
+        id
+      }
+    };
+  }
+});
+
 class ProductPage extends React.Component {
   constructor(props) {
     super(props);
-    this.props.getOneProduct(
-      this.props.location.pathname + this.props.location.search
-    );
+    this.parsedURL = queryString.parse(this.props.location.search);
+    this.query = this.parsedURL.id;
+    this.props.getOneProduct(this.query);
+  }
+
+  shouldComponentUpdate = (nextProps) => {
+    if (!this.props.id || nextProps.data.product === this.props.data.product) {
+      return false;
+    } else {
+      return true;
+    }
   }
 
   componentDidUpdate = prevProps => {
@@ -26,9 +50,9 @@ class ProductPage extends React.Component {
       this.props.location.search &&
       this.props.location.search !== prevProps.location.search
     ) {
-      this.props.getOneProduct(
-        this.props.location.pathname + this.props.location.search
-      );
+      this.parsedURL = queryString.parse(this.props.location.search);
+      this.query = this.parsedURL.id;
+      this.props.getOneProduct(this.query);
     }
   };
 
@@ -42,21 +66,21 @@ class ProductPage extends React.Component {
   };
 
   render() {
-    const { currentProduct } = this.props;
-    return currentProduct ? (
+    const { product } = this.props.data;
+    return product ? (
       <Layout>
         <div className="container container_for_product-page">
           <Row className="justify-content-center">
             <Col xl={10}>
-              <h1>{currentProduct.name}</h1>
+              <h1>{product.name}</h1>
             </Col>
           </Row>
           <Row>
             <Col xl={5}>
               <ReactImageGallery
                 items={this.getImagesArray(
-                  currentProduct.images,
-                  currentProduct.category_id
+                  product.images,
+                  product.category_id
                 )}
                 showFullscreenButton={false}
                 showPlayButton={false}
@@ -65,18 +89,18 @@ class ProductPage extends React.Component {
             <Col xl={5}>
               <div className="product-page__right-container_up">
                 <p className="price-of-product">
-                  {currentProduct.regular_price.slice(
+                  {product.regular_price.slice(
                     0,
-                    currentProduct.regular_price.length - 5
+                    product.regular_price.length - 5
                   )}
                   <i> б.р.</i>
                 </p>
-                <ButtonCart currentProduct={currentProduct} />
+                <ButtonCart currentProduct={product} />
                 <Link to="#" className="sales">
                   Узнать о возможности получения скидки
                 </Link>
               </div>
-              <FormForSaleByClick currentProduct={currentProduct} />
+              <FormForSaleByClick currentProduct={product} />
             </Col>
           </Row>
           <Row>
@@ -102,10 +126,14 @@ class ProductPage extends React.Component {
                   <Col sm={8}>
                     <Tab.Content>
                       <Tab.Pane eventKey="#link1">
-                        <Description descriptions={currentProduct.description} />
+                        <Description
+                          descriptions={product.description}
+                        />
                       </Tab.Pane>
                       <Tab.Pane eventKey="#link2">
-                        <Characteristic attributes={currentProduct.attributes}/>
+                        <Characteristic
+                          attributes={product.attributes}
+                        />
                       </Tab.Pane>
                     </Tab.Content>
                   </Col>
@@ -123,14 +151,14 @@ const mapStateToProps = ({ reducer }) => {
   return {
     products: reducer.products,
     categories: reducer.categories,
-    currentProduct: reducer.currentProduct
+    id: reducer.id
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    getOneProduct: url => dispatch(fetchOneProduct(url))
+    getOneProduct: url => dispatch(getOneProduct(url))
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProductPage);
+export default compose(connect(mapStateToProps, mapDispatchToProps),graphQLOneProduct)(ProductPage);

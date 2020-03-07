@@ -1,7 +1,8 @@
 export const HIGHLIGHT_ATTRIBUTE = "HIGHLIGHT_ATTRIBUTE",
   UNHIGHLIGHT_ATTRIBUTE = "UNHIGHLIGHT_ATTRIBUTE",
   DELETE_ONE_FIELD = "DELETE_ONE_FIELD",
-  GET_ONLY_SELECTION_PRODUCTS = "GET_ONLY_SELECTION_PRODUCTS";
+  GET_ONLY_SELECTION_PRODUCTS = "GET_ONLY_SELECTION_PRODUCTS",
+  CLICK_SHOW_SELECTION = "CLICK_SHOW_SELECTION";
 
 export function highlightAttribute(attr) {
   return {
@@ -31,18 +32,9 @@ function getOnlySelectionProducts(products) {
   };
 }
 
-export function fetchOnlySelectionProducts(url, fields) {
-  console.log(fields, JSON.stringify(fields))
-  return dispatch => {
-    fetch(url, {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(fields)
-    })
-      .then(data => data.json())
-      .then(data => dispatch(getOnlySelectionProducts(data)));
+export function clickShow(bool) {
+  return {
+    type: CLICK_SHOW_SELECTION,
+    bool
   };
 }

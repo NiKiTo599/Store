@@ -4,11 +4,31 @@ import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
 import "./index.scss";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { fetchCategories } from "./../../../actions";
+import { saveCategories } from "./../../../actions";
+
+import { graphql } from "react-apollo";
+import { compose } from "recompose";
+import { categoriesQuery } from "./queries";
 
 class NavigtionCategories extends React.Component {
+  shouldComponentUpdate = () => {
+    if (this.props.categories) {
+      return false;
+    } else {
+      return true;
+    }
+  };
+
   componentDidMount = () => {
-    this.props.fetchCategories("/productCategories");
+    if (this.props.data.categories) {
+      this.props.saveCategories(this.props.data.categories);
+    }
+  };
+
+  componentDidUpdate = prevProps => {
+    if (prevProps.data.categories !== this.props.data.categories) {
+      this.props.saveCategories(this.props.data.categories);
+    }
   };
 
   handleClick = e => {
@@ -22,16 +42,23 @@ class NavigtionCategories extends React.Component {
       return keys.length > 1 ? (
         <ul className="categories-list">
           {keys.map((item, idx) => (
-            <li key={idx} className="list__main-item" onClick={this.handleClick}>
-              <span >{item}</span>
-              <FontAwesomeIcon  icon={faAngleDown} />
-              <ul 
+            <li
+              key={idx}
+              className="list__main-item"
+              onClick={this.handleClick}
+            >
+              <span>{item}</span>
+              <FontAwesomeIcon icon={faAngleDown} />
+              <ul
                 className="sub-list displayNone"
                 onClick={e => e.stopPropagation()}
               >
                 {this.props.categories[item].map((subItem, idx) => (
                   <li key={idx} className="sub-list__item">
-                    <Link key={idx} to={`/home?query=${subItem._id}&page=1&selection=false`}>
+                    <Link
+                      key={idx}
+                      to={`/home?query=${subItem._id}&page=1&selection=false`}
+                    >
                       {subItem.name}
                     </Link>
                   </li>
@@ -47,7 +74,7 @@ class NavigtionCategories extends React.Component {
   }
 }
 
-const mapStateToProps = ({ reducer}) => {
+const mapStateToProps = ({ reducer }) => {
   return {
     categories: reducer.categories
   };
@@ -55,11 +82,11 @@ const mapStateToProps = ({ reducer}) => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchCategories: url => dispatch(fetchCategories(url))
+    saveCategories: items => dispatch(saveCategories(items))
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
+export default compose(
+  connect(mapStateToProps, mapDispatchToProps),
+  graphql(categoriesQuery)
 )(NavigtionCategories);

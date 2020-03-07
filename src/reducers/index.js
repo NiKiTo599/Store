@@ -1,16 +1,18 @@
 import {
   GET_CATEGORIES,
-  GET_PRODUCTS,
+  SAVE_PRODUCT_CATEGORY_ID,
   GET_COUNT,
   GET_ONE_PRODUCT,
-  GET_ATTRIBUTES
+  GET_ATTRIBUTES,
+  SAVE_PRODUCTS
 } from "./../actions";
 import { ADD_TO_CART, DELETE_FROM_CART } from "../actions/actionsCart";
 import {
   HIGHLIGHT_ATTRIBUTE,
   UNHIGHLIGHT_ATTRIBUTE,
   DELETE_ONE_FIELD,
-  GET_ONLY_SELECTION_PRODUCTS
+  GET_ONLY_SELECTION_PRODUCTS,
+  CLICK_SHOW_SELECTION
 } from "../actions/sortSectionAction";
 
 const initialState = {
@@ -18,7 +20,8 @@ const initialState = {
     ? JSON.parse(sessionStorage.getItem("cart"))
     : [],
   attributesForSearch: {},
-  selectedProducts: []
+  selectedProducts: [],
+  isClicked: false
 };
 
 export function reducer(state = initialState, action) {
@@ -27,16 +30,21 @@ export function reducer(state = initialState, action) {
       return Object.assign({}, state, {
         categories: action.items
       });
-    case GET_PRODUCTS:
-      return Object.assign({}, state, { products: action.products });
+    case SAVE_PRODUCT_CATEGORY_ID:
+      return Object.assign({}, state, {
+        category_id: action.category_id,
+        page: action.page
+      });
     case GET_COUNT:
       return Object.assign({}, state, { count: action.item });
     case GET_ONE_PRODUCT:
       return Object.assign({}, state, {
-        currentProduct: action.item
+        id: action.id
       });
     case GET_ATTRIBUTES:
       return Object.assign({}, state, { attributes: action.attr });
+    case SAVE_PRODUCTS:
+      return Object.assign({}, state, { products: action.products });
     default:
       return state;
   }
@@ -107,6 +115,9 @@ export function reducerSortSection(state = initialState, action) {
     }
     case GET_ONLY_SELECTION_PRODUCTS: {
       return Object.assign({}, state, { selectedProducts: action.products });
+    }
+    case CLICK_SHOW_SELECTION: {
+      return Object.assign({}, state, { isClicked: action.bool });
     }
     default:
       return state;

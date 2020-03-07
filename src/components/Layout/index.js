@@ -28,10 +28,7 @@ const Layout = ({ children }) => (
       <aside className="container-categories">
         <NavigtionCategories />
       </aside>
-      <section className="container-for-main">
-        <Search />
-        {children}
-      </section>
+      <section className="container-for-main">{children}</section>
     </main>
     <footer></footer>
   </>

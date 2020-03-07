@@ -1,36 +1,42 @@
 import React from "react";
 
 import { connect } from "react-redux";
-import { fetchAttributes } from "./../../../actions";
 import {
   highlightAttribute,
   unHighlightAttribute,
   deleteOneField,
-  fetchOnlySelectionProducts
+  clickShow
 } from "./../../../actions/sortSectionAction";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 
+import { graphql } from "react-apollo";
+import { compose } from "recompose";
+import { allAttributesQuery } from "./queries";
+
 import "./sort.scss";
-import { Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import AttributeSortButton from "./AttributeSortButton";
+
+const graphQLAllAttributes = graphql(allAttributesQuery, {
+  options: ({ category_id }) => {
+    return {
+      variables: {
+        category_id
+      }
+    };
+  }
+});
 
 class SortSection extends React.Component {
-  constructor(props) {
-    super(props);
-    this.path = "/productattributes";
-    this.props.getAttributes(this.path + this.props.url);
-  }
   componentDidUpdate = prevProps => {
     if (this.props.url !== prevProps.url) {
-      this.props.getAttributes(this.path + this.props.url);
     }
   };
   getAttributesFromData = () => {
-    const { attributes } = this.props;
+    const { productsAttributes } = this.props.data;
     const allAtributesOfProducts = {};
-    attributes.forEach(elem => {
+    productsAttributes.forEach(elem => {
       elem.attributes.reduce((acc, cur) => {
         if (cur.name === "Артикул") return acc;
         if (cur.name in acc) {
@@ -75,13 +81,8 @@ class SortSection extends React.Component {
     }
   };
 
-  handleClickButton = () => {
-    this.props.fetchOnlySelectionProducts(`/home`, this.props.attributesForSearch);
-  }
-
   render() {
-    console.log(this.props.attributesForSearch)
-    if (this.props.attributes) {
+    if (this.props.data.productsAttributes) {
       const allAtributesOfProducts = this.getAttributesFromData();
       const keys = Object.keys(allAtributesOfProducts);
       return (
@@ -101,7 +102,12 @@ class SortSection extends React.Component {
               <FontAwesomeIcon icon={faTrashAlt} />
             </p>
           ))}
-          <Link to="/home"><Button onClick={this.handleClickButton} variant="success">Показать выбранные</Button></Link>
+          <AttributeSortButton
+            attributesForSearch={this.props.attributesForSearch}
+            isSort={this.props.isSort}
+            isClicked={this.props.isClicked}
+            query={this.props.query}
+          />
         </div>
       );
     } else {
@@ -113,18 +119,22 @@ class SortSection extends React.Component {
 const mapStateToProps = ({ reducer, reducerSortSection }) => {
   return {
     attributes: reducer.attributes,
-    attributesForSearch: reducerSortSection.attributesForSearch
+    attributesForSearch: reducerSortSection.attributesForSearch,
+    category_id: reducer.category_id,
+    isClicked: reducerSortSection.isClicked
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    getAttributes: url => dispatch(fetchAttributes(url)),
     highlightAttribute: attr => dispatch(highlightAttribute(attr)),
     unHighlightAttribute: attr => dispatch(unHighlightAttribute(attr)),
     deleteOneField: field => dispatch(deleteOneField(field)),
-    fetchOnlySelectionProducts: (url, fields) => dispatch(fetchOnlySelectionProducts(url, fields))
+    isSort: bool => dispatch(clickShow(bool))
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(SortSection);
+export default compose(
+  connect(mapStateToProps, mapDispatchToProps),
+  graphQLAllAttributes
+)(SortSection);

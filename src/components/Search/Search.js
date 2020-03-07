@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { fetchProducts } from "./../../actions";
+//import { fetchProducts } from "./../../actions";
 import AutoSuggest from "react-autosuggest";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
@@ -104,10 +104,10 @@ const mapStateToProps = ({ reducer }) => {
   };
 };
 
-const mapDispatchToProps = dispatch => {
+/*const mapDispatchToProps = dispatch => {
   return {
     fetchProducts: url => dispatch(fetchProducts(url))
   };
-};
+};*/
 
-export default connect(mapStateToProps, mapDispatchToProps)(Search);
+export default connect(mapStateToProps)(Search);

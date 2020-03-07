@@ -1,7 +1,6 @@
 import React from "react";
 import "./products.scss";
 import "../../../node_modules/react-image-gallery/styles/scss/image-gallery.scss"
-import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import ButtonCart from "../ProductPage/ButtonCart";
 

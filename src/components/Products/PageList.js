@@ -17,7 +17,7 @@ class PageList extends React.Component {
     this.nextButton = this.stylesForButtons.active;
     this.prevButton = this.stylesForButtons.disactive;
     if (this.props.location.search) {
-      this.props.fetchCount("/count" + this.props.location.search);
+      //this.props.fetchCount("/count" + this.props.location.search);
     }
   }
   componentDidUpdate = prevProps => {
@@ -25,7 +25,7 @@ class PageList extends React.Component {
       this.props.location.search &&
       this.props.location.search !== prevProps.location.search
     ) {
-      this.props.fetchCount("/count" + this.props.location.search);
+      //this.props.fetchCount("/count" + this.props.location.search);
       this.page = +queryString.parse(this.props.location.search).page;
     }
   };

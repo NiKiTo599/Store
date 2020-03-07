@@ -2,9 +2,15 @@ import React from "react";
 import Layout from "../Layout";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDoubleRight } from "@fortawesome/free-solid-svg-icons";
+import queryString from "query-string";
+
+import { graphql } from "react-apollo";
+import { compose } from "recompose";
+import { productsQuery } from "./queries";
+
+import { saveProductCategoriesID, saveProducts } from "../../actions";
 
 import { connect } from "react-redux";
-import { fetchProducts } from "./../../actions";
 
 import "./index.scss";
 import { Row, Container, Col } from "react-bootstrap";
@@ -12,14 +18,34 @@ import ProductList from "../Products/ProductList";
 import PageList from "../Products/PageList";
 import SortSection from "./SortSection/SortSection";
 
+const graphQLProducts = graphql(productsQuery, {
+  options: args => {
+    const { category_id, page, attributesForSearch, isClicked } = args;
+    let values;
+    if (isClicked && attributesForSearch) {
+      const keysAttributes = Object.keys(attributesForSearch);
+      values = [];
+      for (let i = 0; i < keysAttributes.length; i++) {
+        values = values.concat(attributesForSearch[keysAttributes[i]]);
+      }
+    }
+    return {
+      variables: {
+        category_id,
+        page,
+        attr: values
+      }
+    };
+  }
+});
+
 class Home extends React.Component {
   constructor(props) {
     super(props);
-    if (this.props.location.search) {
-      this.props.getProducts(
-        this.props.location.pathname + this.props.location.search
-      );
-    }
+    this.parsedURL = queryString.parse(this.props.location.search);
+    this.query = this.parsedURL.query;
+    this.page = this.parsedURL.page;
+    this.props.saveProductCategoriesID(this.query, this.page);
   }
 
   componentDidUpdate = prevProps => {
@@ -27,9 +53,10 @@ class Home extends React.Component {
       this.props.location.search &&
       this.props.location.search !== prevProps.location.search
     ) {
-      this.props.getProducts(
-        this.props.location.pathname + this.props.location.search
-      );
+      this.parsedURL = queryString.parse(this.props.location.search);
+      this.query = this.parsedURL.query;
+      this.page = this.parsedURL.page;
+      this.props.saveProductCategoriesID(this.query, this.page);
     }
   };
 
@@ -56,6 +83,7 @@ class Home extends React.Component {
 
   render() {
     const { category, subCategory } = this.getCategoryAndSubCategory();
+    console.log(this.props.data)
     return (
       <Layout>
         <Container>
@@ -72,10 +100,10 @@ class Home extends React.Component {
               </Row>
               <Row>
                 <Col>
-                  <SortSection url={this.props.location.search} />
+                  <SortSection query={this.query}/>
                 </Col>
               </Row>
-              <ProductList products={this.props.products} />
+              <ProductList products={this.props.data.products} />
               <PageList location={this.props.location} />
             </>
           ) : null}
@@ -85,17 +113,25 @@ class Home extends React.Component {
   }
 }
 
-const mapStateToProps = ({ reducer }) => {
+const mapStateToProps = store => {
+  const { reducer, reducerSortSection } = store;
   return {
-    products: reducer.products,
-    categories: reducer.categories
+    category_id: reducer.category_id,
+    page: reducer.page,
+    categories: reducer.categories,
+    isClicked: reducerSortSection.isClicked,
+    attributesForSearch: reducerSortSection.attributesForSearch
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    getProducts: url => dispatch(fetchProducts(url))
+    saveProductCategoriesID: (id, page) =>
+      dispatch(saveProductCategoriesID(id, page))
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default compose(
+  connect(mapStateToProps, mapDispatchToProps),
+  graphQLProducts
+)(Home);

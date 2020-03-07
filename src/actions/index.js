@@ -1,20 +1,40 @@
 export const GET_CATEGORIES = "GET_CATEGORIES",
-  GET_PRODUCTS = "GET_PRODUCTS",
+  SAVE_PRODUCT_CATEGORY_ID = "SAVE_PRODUCT_CATEGORY_ID",
   GET_COUNT = "GET_COUNT",
   GET_ONE_PRODUCT = "GET_ONE_PRODUCT",
-  GET_ATTRIBUTES = "GET_ATTRIBUTES";
+  GET_ATTRIBUTES = "GET_ATTRIBUTES",
+  SAVE_PRODUCTS = "SAVE_PRODUCTS";
 
-function getProducts(products) {
+export function saveProductCategoriesID(category_id, page) {
   return {
-    type: GET_PRODUCTS,
+    type: SAVE_PRODUCT_CATEGORY_ID,
+    category_id,
+    page
+  };
+}
+
+export function saveProducts(products) {
+  return {
+    type: SAVE_PRODUCTS,
     products
   };
 }
 
-function getCategories(items) {
+export function saveCategories(data) {
+  const obj = {};
+  data
+    .filter(item => !item.parent_id)
+    .forEach(item => {
+      obj[item.name] = [];
+    });
+  data.forEach(item => {
+    if (item.meta_description !== item.name) {
+      obj[item.meta_description].push(item);
+    }
+  });
   return {
     type: GET_CATEGORIES,
-    items
+    items: obj
   };
 }
 
@@ -25,10 +45,10 @@ function getCount(item) {
   };
 }
 
-function getOneProduct(item) {
+export function getOneProduct(id) {
   return {
     type: GET_ONE_PRODUCT,
-    item
+    id
   };
 }
 
@@ -44,44 +64,6 @@ export function fetchCount(url) {
     fetch(url)
       .then(data => data.json())
       .then(data => dispatch(getCount(data)));
-  };
-}
-
-export function fetchCategories(url) {
-  return dispatch => {
-    fetch(url)
-      .then(data => data.json())
-      .then(data => {
-        const obj = {};
-        data
-          .filter(item => !item.parent_id)
-          .forEach(item => {
-            obj[item.name] = [];
-          });
-        data.forEach(item => {
-          if (item.meta_description !== item.name) {
-            obj[item.meta_description].push(item);
-          }
-        });
-        return obj;
-      })
-      .then(data => dispatch(getCategories(data)));
-  };
-}
-
-export function fetchProducts(url) {
-  return dispatch => {
-    fetch(url)
-      .then(data => data.json())
-      .then(data => dispatch(getProducts(data)));
-  };
-}
-
-export function fetchOneProduct(url) {
-  return dispatch => {
-    fetch(url)
-      .then(data => data.json())
-      .then(data => dispatch(getOneProduct(data)));
   };
 }
 
