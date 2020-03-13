@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import Layout from "../Layout";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDoubleRight } from "@fortawesome/free-solid-svg-icons";
@@ -13,9 +13,9 @@ import { saveProductCategoriesID, saveProducts } from "../../actions";
 import { connect } from "react-redux";
 
 import "./index.scss";
-import { Row, Container, Col } from "react-bootstrap";
+import { Row, Container, Col, Spinner } from "react-bootstrap";
 import ProductList from "../Products/ProductList";
-import PageList from "../Products/PageList";
+import PageList from "../Products/NavigateForPages/PageList";
 import SortSection from "./SortSection/SortSection";
 
 const graphQLProducts = graphql(productsQuery, {
@@ -39,7 +39,7 @@ const graphQLProducts = graphql(productsQuery, {
   }
 });
 
-class Home extends React.Component {
+class Home extends React.PureComponent {
   constructor(props) {
     super(props);
     this.parsedURL = queryString.parse(this.props.location.search);
@@ -47,6 +47,21 @@ class Home extends React.Component {
     this.page = this.parsedURL.page;
     this.props.saveProductCategoriesID(this.query, this.page);
   }
+
+  state = {
+    isLoading: false
+  };
+
+  componentDidMount = () => {
+    this.setState({ isLoading: true }, function() {
+      setTimeout(
+        function() {
+          this.setState({ isLoading: false });
+        }.bind(this),
+        3000
+      );
+    });
+  };
 
   componentDidUpdate = prevProps => {
     if (
@@ -57,6 +72,14 @@ class Home extends React.Component {
       this.query = this.parsedURL.query;
       this.page = this.parsedURL.page;
       this.props.saveProductCategoriesID(this.query, this.page);
+      this.setState({ isLoading: true }, function() {
+        setTimeout(
+          function() {
+            this.setState({ isLoading: false });
+          }.bind(this),
+          3000
+        );
+      });
     }
   };
 
@@ -83,7 +106,7 @@ class Home extends React.Component {
 
   render() {
     const { category, subCategory } = this.getCategoryAndSubCategory();
-    console.log(this.props.data)
+    console.log(this.state.isLoading);
     return (
       <Layout>
         <Container>
@@ -100,10 +123,19 @@ class Home extends React.Component {
               </Row>
               <Row>
                 <Col>
-                  <SortSection query={this.query}/>
+                  <SortSection query={this.query} />
                 </Col>
               </Row>
-              <ProductList products={this.props.data.products} />
+              <PageList location={this.props.location} />
+              {!this.state.isLoading ? (
+                <ProductList
+                  search={this.props.location.search}
+                  products={this.props.data.products}
+                />
+              ) : (
+                <Spinner animation="border" variant="success" size="big" />
+              )}
+
               <PageList location={this.props.location} />
             </>
           ) : null}
