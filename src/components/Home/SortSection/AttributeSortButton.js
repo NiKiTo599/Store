@@ -7,15 +7,10 @@ import { compose } from "recompose";
 import { countOfFindProducts } from "./queries";
 
 const graphQLSortByAttribute = graphql(countOfFindProducts, {
-  options: ({ attributesForSearch }) => {
-    const keysAttributes = Object.keys(attributesForSearch);
-    let values = [];
-    for (let i = 0; i < keysAttributes.length; i++) {
-      values = values.concat(attributesForSearch[keysAttributes[i]]);
-    }
+  options: ({ arrayOfAllAtributes }) => {
     return {
       variables: {
-        attr: values
+        attr: arrayOfAllAtributes
       }
     };
   }
@@ -24,17 +19,20 @@ const graphQLSortByAttribute = graphql(countOfFindProducts, {
 class AttributeSortButton extends React.Component {
   handleClickButton = () => {
     if (!this.props.isClicked) {
-      
+      this.props.isSort(!this.props.isClicked);
+      this.props.saveFoundProducts(this.props.data.attributeSortCount);
+    } else {
+      this.props.isSort(!this.props.isClicked);
+      this.props.saveFoundProducts(undefined);
     }
-    this.props.isSort(!this.props.isClicked);
   };
 
   render() {
-    return Object.keys(this.props.attributesForSearch).length !== 0 ? (
+    return this.props.arrayOfAllAtributes.length !== 0 ? (
       <>
         <Link to={`/home?query=${this.props.query}&page=1`}>
           <Button onClick={this.handleClickButton} variant="success">
-            { this.props.isClicked ? "Сбросить фильтры" : "Показать выбранные"}
+            {this.props.isClicked ? "Сбросить фильтры" : "Показать выбранные"}
           </Button>
         </Link>
 

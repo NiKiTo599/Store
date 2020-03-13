@@ -106,7 +106,6 @@ class Home extends React.PureComponent {
 
   render() {
     const { category, subCategory } = this.getCategoryAndSubCategory();
-    console.log(this.state.isLoading);
     return (
       <Layout>
         <Container>
@@ -136,7 +135,7 @@ class Home extends React.PureComponent {
                 <Spinner animation="border" variant="success" size="big" />
               )}
 
-              <PageList location={this.props.location} />
+              <PageList isClicked={this.props.isClicked} location={this.props.location} />
             </>
           ) : null}
         </Container>

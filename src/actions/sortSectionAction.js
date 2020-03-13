@@ -1,8 +1,8 @@
 export const HIGHLIGHT_ATTRIBUTE = "HIGHLIGHT_ATTRIBUTE",
   UNHIGHLIGHT_ATTRIBUTE = "UNHIGHLIGHT_ATTRIBUTE",
   DELETE_ONE_FIELD = "DELETE_ONE_FIELD",
-  GET_ONLY_SELECTION_PRODUCTS = "GET_ONLY_SELECTION_PRODUCTS",
-  CLICK_SHOW_SELECTION = "CLICK_SHOW_SELECTION";
+  DELETE_ALL_ATTRIBUTES = "DELETE_ALL_ATTRIBUTES",
+  CLICK_SHOW_SELECTION = "CLICK_SHOW_SELECTION", SAVE_FOUND_PRODUCTS = "SAVE_FOUND_PRODUCTS";
 
 export function highlightAttribute(attr) {
   return {
@@ -25,10 +25,9 @@ export function deleteOneField(field) {
   };
 }
 
-function getOnlySelectionProducts(products) {
+export function deleteAllAttributes() {
   return {
-    type: GET_ONLY_SELECTION_PRODUCTS,
-    products
+    type: DELETE_ALL_ATTRIBUTES
   };
 }
 
@@ -36,5 +35,12 @@ export function clickShow(bool) {
   return {
     type: CLICK_SHOW_SELECTION,
     bool
+  };
+}
+
+export function saveFoundProducts (num) {
+  return {
+    type: SAVE_FOUND_PRODUCTS,
+    num
   };
 }

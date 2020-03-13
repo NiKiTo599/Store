@@ -1,6 +1,6 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
+import { faAngleDown, faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import "./index.scss";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
@@ -40,33 +40,36 @@ class NavigtionCategories extends React.Component {
     if (this.props.categories) {
       const keys = Object.keys(this.props.categories);
       return keys.length > 1 ? (
-        <ul className="categories-list">
-          {keys.map((item, idx) => (
-            <li
-              key={idx}
-              className="list__main-item"
-              onClick={this.handleClick}
-            >
-              <span>{item}</span>
-              <FontAwesomeIcon icon={faAngleDown} />
-              <ul
-                className="sub-list displayNone"
-                onClick={e => e.stopPropagation()}
+        <>
+          <ul className="categories-list">
+            {keys.map((item, idx) => (
+              <li
+                key={idx}
+                className="list__main-item"
+                onClick={this.handleClick}
               >
-                {this.props.categories[item].map((subItem, idx) => (
-                  <li key={idx} className="sub-list__item">
-                    <Link
-                      key={idx}
-                      to={`/home?query=${subItem._id}&page=1&selection=false`}
-                    >
-                      {subItem.name}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </li>
-          ))}
-        </ul>
+                <span>{item}</span>
+                <div className="container-for-svg">
+                  <FontAwesomeIcon icon={faAngleDown} />
+                </div>
+                <ul className="sub-list" onClick={e => e.stopPropagation()}>
+                  {this.props.categories[item].map((subItem, idx) => (
+                    <li key={idx} className="sub-list__item">
+                      <Link
+                        className="nav__link"
+                        key={idx}
+                        to={`/home?query=${subItem._id}&page=1&selection=false`}
+                      >
+                        <FontAwesomeIcon icon={faChevronRight} />
+                        {subItem.name}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </li>
+            ))}
+          </ul>
+        </>
       ) : null;
     } else {
       return null;

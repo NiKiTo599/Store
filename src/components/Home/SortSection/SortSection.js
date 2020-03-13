@@ -5,7 +5,9 @@ import {
   highlightAttribute,
   unHighlightAttribute,
   deleteOneField,
-  clickShow
+  clickShow,
+  saveFoundProducts,
+  deleteAllAttributes
 } from "./../../../actions/sortSectionAction";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -30,7 +32,8 @@ const graphQLAllAttributes = graphql(allAttributesQuery, {
 
 class SortSection extends React.Component {
   componentDidUpdate = prevProps => {
-    if (this.props.url !== prevProps.url) {
+    if (this.props.query !== prevProps.query) {
+      this.props.deleteAllAttributes();
     }
   };
   getAttributesFromData = () => {
@@ -82,6 +85,7 @@ class SortSection extends React.Component {
   };
 
   render() {
+    console.log(this.props.attributesForSearch, this.props.arrayOfAllAtributes)
     if (this.props.data.productsAttributes) {
       const allAtributesOfProducts = this.getAttributesFromData();
       const keys = Object.keys(allAtributesOfProducts);
@@ -103,7 +107,8 @@ class SortSection extends React.Component {
             </p>
           ))}
           <AttributeSortButton
-            attributesForSearch={this.props.attributesForSearch}
+            saveFoundProducts={this.props.saveFoundProducts}
+            arrayOfAllAtributes={this.props.arrayOfAllAtributes}
             isSort={this.props.isSort}
             isClicked={this.props.isClicked}
             query={this.props.query}
@@ -120,6 +125,7 @@ const mapStateToProps = ({ reducer, reducerSortSection }) => {
   return {
     attributes: reducer.attributes,
     attributesForSearch: reducerSortSection.attributesForSearch,
+    arrayOfAllAtributes: reducerSortSection.arrayOfAllAtributes,
     category_id: reducer.category_id,
     isClicked: reducerSortSection.isClicked
   };
@@ -130,7 +136,9 @@ const mapDispatchToProps = dispatch => {
     highlightAttribute: attr => dispatch(highlightAttribute(attr)),
     unHighlightAttribute: attr => dispatch(unHighlightAttribute(attr)),
     deleteOneField: field => dispatch(deleteOneField(field)),
-    isSort: bool => dispatch(clickShow(bool))
+    deleteAllAttributes: () => dispatch(deleteAllAttributes()),
+    isSort: bool => dispatch(clickShow(bool)),
+    saveFoundProducts: num => dispatch(saveFoundProducts(num))
   };
 };
 

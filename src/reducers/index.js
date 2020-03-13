@@ -11,8 +11,9 @@ import {
   HIGHLIGHT_ATTRIBUTE,
   UNHIGHLIGHT_ATTRIBUTE,
   DELETE_ONE_FIELD,
-  GET_ONLY_SELECTION_PRODUCTS,
-  CLICK_SHOW_SELECTION
+  CLICK_SHOW_SELECTION,
+  SAVE_FOUND_PRODUCTS,
+  DELETE_ALL_ATTRIBUTES
 } from "../actions/sortSectionAction";
 
 const initialState = {
@@ -21,7 +22,8 @@ const initialState = {
     : [],
   attributesForSearch: {},
   selectedProducts: [],
-  isClicked: false
+  isClicked: false,
+  arrayOfAllAtributes: []
 };
 
 export function reducer(state = initialState, action) {
@@ -54,7 +56,9 @@ export function reducerCart(state = initialState, action) {
   switch (action.type) {
     case ADD_TO_CART: {
       let arr = state.cart.slice();
-      arr.push(action.item);
+      if (!arr.includes(action.item)) {
+        arr.push(action.item);
+      }
       sessionStorage.setItem("cart", JSON.stringify(arr));
       return Object.assign({}, state, { cart: arr });
     }
@@ -72,8 +76,15 @@ export function reducerCart(state = initialState, action) {
 
 export function reducerSortSection(state = initialState, action) {
   switch (action.type) {
+    case SAVE_FOUND_PRODUCTS: {
+      return Object.assign({}, state, {
+        countProducts: action.num
+      });
+    }
     case HIGHLIGHT_ATTRIBUTE: {
       const key = Object.keys(action.attr)[0];
+      const arrayOfAllAtributes = state.arrayOfAllAtributes.slice();
+      arrayOfAllAtributes.push(action.attr[key][0]);
       if (
         state.attributesForSearch[key] &&
         !state.attributesForSearch[key].includes(action.attr[key])
@@ -81,6 +92,7 @@ export function reducerSortSection(state = initialState, action) {
         const arr = state.attributesForSearch[key].slice();
         arr.push(action.attr[key][0]);
         return Object.assign({}, state, {
+          arrayOfAllAtributes: arrayOfAllAtributes,
           attributesForSearch: {
             ...state.attributesForSearch,
             [key]: arr
@@ -88,36 +100,52 @@ export function reducerSortSection(state = initialState, action) {
         });
       }
       return Object.assign({}, state, {
-        attributesForSearch: { ...action.attr, ...state.attributesForSearch }
+        attributesForSearch: { ...action.attr, ...state.attributesForSearch },
+        arrayOfAllAtributes: arrayOfAllAtributes
       });
     }
     case UNHIGHLIGHT_ATTRIBUTE: {
       const key = Object.keys(action.attr)[0];
       const arr = state.attributesForSearch[key].slice();
+      const arrayOfAllAtributes = state.arrayOfAllAtributes.slice();
       arr.splice(
         state.attributesForSearch[key].indexOf(action.attr[key][0]),
+        1
+      );
+      arrayOfAllAtributes.splice(
+        state.arrayOfAllAtributes.indexOf(action.attr[key][0]),
         1
       );
       return Object.assign({}, state, {
         attributesForSearch: {
           ...state.attributesForSearch,
           [key]: arr
-        }
+        },
+        arrayOfAllAtributes: arrayOfAllAtributes
       });
     }
     case DELETE_ONE_FIELD: {
+      const arrayOfAllAtributes = state.arrayOfAllAtributes
+        .slice()
+        .filter(
+          item => !state.attributesForSearch[action.field].includes(item)
+        );
       return Object.assign({}, state, {
         attributesForSearch: {
           ...state.attributesForSearch,
           [action.field]: []
-        }
+        },
+        arrayOfAllAtributes: arrayOfAllAtributes
       });
-    }
-    case GET_ONLY_SELECTION_PRODUCTS: {
-      return Object.assign({}, state, { selectedProducts: action.products });
     }
     case CLICK_SHOW_SELECTION: {
       return Object.assign({}, state, { isClicked: action.bool });
+    }
+    case DELETE_ALL_ATTRIBUTES: {
+      return Object.assign({}, state, {
+        attributesForSearch: {},
+        arrayOfAllAtributes: []
+      });
     }
     default:
       return state;
