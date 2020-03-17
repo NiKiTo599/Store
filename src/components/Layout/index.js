@@ -6,8 +6,9 @@ import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 
 import "./index.scss";
 import NavigtionCategories from "../Home/NavCategories/NavigtionCategories";
-import Search from "../Search/Search";
+import ContainerForSerch from "../Search/Container";
 import Header from "./Header";
+import Footer from "./Footer";
 
 const Layout = ({ children }) => (
   <>
@@ -17,18 +18,18 @@ const Layout = ({ children }) => (
       integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
       crossorigin="anonymous"
     />
-    <link href="https://fonts.googleapis.com/css?family=Alegreya+Sans:400,400i,700&display=swap" rel="stylesheet"></link>
+    <link href="https://fonts.googleapis.com/css?family=Comfortaa:400,700&display=swap&subset=cyrillic-ext" rel="stylesheet"></link>
     <Header />
     <main className="main">
       <aside className="container-categories">
         <NavigtionCategories />
       </aside>
       <section className="container-for-main">
-        <Search />
+        <ContainerForSerch />
         {children}
       </section>
     </main>
-    <footer></footer>
+    <Footer />
   </>
 );
 
