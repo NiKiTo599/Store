@@ -1,11 +1,24 @@
 import React from "react";
 import { connect } from "react-redux";
-//import { fetchProducts } from "./../../actions";
 import AutoSuggest from "react-autosuggest";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
+import { graphql } from "react-apollo";
+import { compose } from "recompose";
+import { searchProducts } from "./queries";
+
 import "./search.scss";
+
+const graphQLSearchProducts = graphql(searchProducts, {
+  options: ({ name }) => {
+    return {
+      variables: {
+        name
+      }
+    };
+  }
+});
 
 const getSuggestionValue = suggestion => suggestion.name;
 
@@ -33,23 +46,16 @@ const renderInputComponent = inputProps => (
 class Search extends React.Component {
   constructor(props) {
     super(props);
-    //this.categories = this.props.categories;
     this.state = {
-      valueForSearch: "",
       suggestions: []
     };
   }
 
-  onChange = (event, { newValue }) => {
-    this.props.fetchProducts(`/search?query=${newValue}&page=1`);
-    this.setState({
-      valueForSearch: newValue
-    });
-  };
-
   getSuggestions = value => {
     const inputLength = value.trim().toLowerCase().length;
-    return inputLength === 0 || !this.props.products ? [] : this.props.products;
+    return inputLength === 0 || !this.props.data.searchProducts
+      ? []
+      : this.props.data.searchProducts;
   };
 
   // Autosuggest will call this function every time you need to update suggestions.
@@ -67,21 +73,13 @@ class Search extends React.Component {
     });
   };
 
-  /*makeSuggestionsFromCategories = () => {
-    let arrayOfCategories = [];
-    for (let key in this.props.products) {
-      arrayOfCategories = arrayOfCategories.concat(this.props.categories[key]);
-    }
-    return arrayOfCategories;
-  };*/
-
   render() {
-    //this.products = this.makeSuggestionsFromCategories();
-    const { suggestions, valueForSearch } = this.state;
+    const { suggestions } = this.state;
+    const { data, handleChange, name } = this.props;
     const inputProps = {
       placeholder: "Я ищу...",
-      value: valueForSearch,
-      onChange: this.onChange
+      value: name,
+      onChange: handleChange
     };
     return (
       <AutoSuggest
@@ -110,4 +108,4 @@ const mapStateToProps = ({ reducer }) => {
   };
 };*/
 
-export default connect(mapStateToProps)(Search);
+export default compose(connect(mapStateToProps), graphQLSearchProducts)(Search);
