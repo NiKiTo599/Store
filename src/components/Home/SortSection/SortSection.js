@@ -19,6 +19,7 @@ import { allAttributesQuery } from "./queries";
 
 import "./sort.scss";
 import AttributeSortButton from "./AttributeSortButton";
+import TooltipComponent from "../../basicComponents/Toottips";
 
 const graphQLAllAttributes = graphql(allAttributesQuery, {
   options: ({ category_id }) => {
@@ -85,7 +86,6 @@ class SortSection extends React.Component {
   };
 
   render() {
-    console.log(this.props.attributesForSearch, this.props.arrayOfAllAtributes)
     if (this.props.data.productsAttributes) {
       const allAtributesOfProducts = this.getAttributesFromData();
       const keys = Object.keys(allAtributesOfProducts);
@@ -103,7 +103,9 @@ class SortSection extends React.Component {
                   {item}
                 </span>
               ))}
-              <FontAwesomeIcon icon={faTrashAlt} />
+              <TooltipComponent text={"Сбросить категорию"}>
+                <FontAwesomeIcon icon={faTrashAlt} />
+              </TooltipComponent>
             </p>
           ))}
           <AttributeSortButton

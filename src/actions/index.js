@@ -30,6 +30,8 @@ export function saveCategories(data) {
   data.forEach(item => {
     if (item.meta_description !== item.name) {
       obj[item.meta_description].push(item);
+    } else if (item.name === 'Запчасти для бытовой техники' || item.name === 'Различные блоки питания') {
+      obj[item.meta_description].push(item);
     }
   });
   return {

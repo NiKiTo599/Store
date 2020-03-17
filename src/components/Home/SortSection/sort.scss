@@ -5,8 +5,14 @@
   background-color: #F3F3F3;
   padding: 1.5rem;
   .sort-attribute {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
     color: #218838;
     font-weight: 700;
+    position: relative;
     span {
       color: #464d47;
       margin: 0 1rem;
@@ -16,6 +22,10 @@
     .highlight {
       color: #fff;
       background-color: var(--success);
+    }
+    svg {
+      position: absolute;
+      left: 95%;
     }
   }
 }
