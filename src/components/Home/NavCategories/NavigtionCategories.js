@@ -43,30 +43,44 @@ class NavigtionCategories extends React.Component {
         <>
           <ul className="categories-list">
             {keys.map((item, idx) => (
-              <li
-                key={idx}
-                className="list__main-item"
-                onClick={this.handleClick}
-              >
-                <span>{item}</span>
-                <div className="container-for-svg">
-                  <FontAwesomeIcon icon={faAngleDown} />
-                </div>
-                <ul className="sub-list" onClick={e => e.stopPropagation()}>
-                  {this.props.categories[item].map((subItem, idx) => (
-                    <li key={idx} className="sub-list__item">
-                      <Link
-                        className="nav__link"
-                        key={idx}
-                        to={`/home?query=${subItem._id}&page=1&selection=false`}
-                      >
-                        <FontAwesomeIcon icon={faChevronRight} />
-                        {subItem.name}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </li>
+              <>
+                {this.props.categories[item].length !== 1 ? (
+                  <li
+                    key={idx}
+                    className="list__main-item"
+                    onClick={this.handleClick}
+                  >
+                    <span>{item}</span>
+                    <div className="container-for-svg">
+                      <FontAwesomeIcon icon={faAngleDown} />
+                    </div>
+                    <ul className="sub-list" onClick={e => e.stopPropagation()}>
+                      {this.props.categories[item].map((subItem, idx) => (
+                        <li key={idx} className="sub-list__item">
+                          <Link
+                            className="nav__link"
+                            key={idx}
+                            to={`/home?query=${subItem._id}&page=1&selection=false`}
+                          >
+                            <FontAwesomeIcon icon={faChevronRight} />
+                            {subItem.name}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </li>
+                ) : (
+                  <li key={idx} className="list__main-item">
+                    <Link
+                      className="nav__link"
+                      key={idx}
+                      to={`/home?query=${this.props.categories[item][0]._id}&page=1&selection=false`}
+                    >
+                      <span>{item}</span>
+                    </Link>
+                  </li>
+                )}
+              </>
             ))}
           </ul>
         </>
