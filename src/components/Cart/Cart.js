@@ -9,7 +9,7 @@ import TableOfProducts from "./TableOfProducts";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashAlt, faCheckSquare } from "@fortawesome/free-solid-svg-icons";
-import { InputGroup } from "react-bootstrap";
+import { InputGroup, Row, Col } from "react-bootstrap";
 
 class Cart extends React.Component {
   state = {
@@ -18,15 +18,15 @@ class Cart extends React.Component {
   };
 
   shouldDelete = () => {
-    const checkBox = document.querySelectorAll(".checkbox_product");
+    const checkBox = document.querySelectorAll(".form-check-input");
     const arrayForIndexesForDelete = [];
     for (let i = 0; i < checkBox.length; i++) {
       if (checkBox[i].checked) {
         arrayForIndexesForDelete.push(checkBox[i].getAttribute("index"));
       }
     }
-    console.log(arrayForIndexesForDelete)
-    this.props.deleteFromCart(arrayForIndexesForDelete)
+    console.log(arrayForIndexesForDelete);
+    this.props.deleteFromCart(arrayForIndexesForDelete);
   };
 
   render() {
@@ -34,31 +34,41 @@ class Cart extends React.Component {
       <Layout>
         <div className="container_cart">
           <h2 className="cart__title">Корзина</h2>
-          <InputGroup onClick={this.shouldDelete} className="xl-1 mb-3">
-            <InputGroup.Prepend>
+          <div className="container_for_actions">
+            <InputGroup onClick={this.shouldDelete} className="xl-1 mb-3">
+              <InputGroup.Prepend>
+                <InputGroup.Text>
+                  <FontAwesomeIcon icon={faTrashAlt} />
+                </InputGroup.Text>
+              </InputGroup.Prepend>
+              <InputGroup.Text>Удаление из корзины</InputGroup.Text>
+            </InputGroup>
+            <InputGroup
+              onClick={() => {
+                this.setState({ checkAll: !this.state.checkAll });
+              }}
+              className="xl-1 mb-3"
+            >
+              <InputGroup.Prepend>
+                <InputGroup.Text>
+                  <FontAwesomeIcon icon={faCheckSquare} />
+                </InputGroup.Text>
+              </InputGroup.Prepend>
               <InputGroup.Text>
-                <FontAwesomeIcon icon={faTrashAlt} />
+                {this.state.checkAll
+                  ? "Снять выделение"
+                  : "Выделить все товары"}
               </InputGroup.Text>
-            </InputGroup.Prepend>
-            <InputGroup.Text>Удаление из корзины</InputGroup.Text>
-          </InputGroup>
-          <InputGroup
-            onClick={() => {
-              this.setState({ checkAll: !this.state.checkAll });
-            }}
-            className="xl-1 mb-3"
-          >
-            <InputGroup.Prepend>
-              <InputGroup.Text>
-                <FontAwesomeIcon icon={faCheckSquare} />
-              </InputGroup.Text>
-            </InputGroup.Prepend>
-            <InputGroup.Text>Выделить все товары</InputGroup.Text>
-          </InputGroup>
-          <TableOfProducts
-            checkAll={this.state.checkAll}
-            cart={this.props.cart}
-          />
+            </InputGroup>
+          </div>
+          <Row className="justify-content-center">
+            <Col xl={10}>
+              <TableOfProducts
+                checkAll={this.state.checkAll}
+                cart={this.props.cart}
+              />
+            </Col>
+          </Row>
         </div>
       </Layout>
     );

@@ -1,11 +1,16 @@
 .container_cart {
   .input-group-prepend {
-    background-color: var(--dark);
+    background-color: rgb(255, 222, 89);
+    cursor: pointer;
   }
   .input-group-text {
     color: var(--success);
     border: var(--success) solid 2px;
     background-color: transparent;
+    cursor: pointer;
+    .checkbox_product {
+      background-color: rgb(255, 222, 89) !important;
+    }
   }
   .cart__item-of-product {
     display: flex;
@@ -15,9 +20,21 @@
       width: 5rem;
     }
     .item-of-product__title {
+      font-size: 1rem;
     }
   }
   .cart__title {
+    color: var(--success);
+    font-weight: 700;
+    text-align: center;
+  }
+  .container_for_actions {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    .input-group {
+      width: inherit;
+    }
   }
 }
 
@@ -32,14 +49,110 @@
 
 //For table\
 
-.table-cart td {
-  vertical-align: middle !important;
-  text-align: center;
-  .input-group-text {
-    background-color: transparent !important;
-    border: none !important;
-    input {
-      background-color: var(--success) !important;
+.table-cart {
+  td,
+  th {
+    vertical-align: middle !important;
+    text-align: center;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    .input-group-text {
+      background-color: transparent !important;
+      border: none !important;
+      input {
+        background-color: var(--success) !important;
+      }
     }
   }
+}
+
+input[type="checkbox"]:checked,
+input[type="checkbox"]:not(:checked),
+input[type="radio"]:checked,
+input[type="radio"]:not(:checked) {
+  position: absolute;
+  left: -9999px;
+}
+
+input[type="checkbox"]:checked + label,
+input[type="checkbox"]:not(:checked) + label,
+input[type="radio"]:checked + label,
+input[type="radio"]:not(:checked) + label {
+  display: inline-block;
+  position: relative;
+  padding-left: 28px;
+  line-height: 20px;
+  cursor: pointer;
+}
+
+input[type="checkbox"]:checked + label:before,
+input[type="checkbox"]:not(:checked) + label:before,
+input[type="radio"]:checked + label:before,
+input[type="radio"]:not(:checked) + label:before {
+  content: "";
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 18px;
+  height: 18px;
+  border: 1px solid #dddddd;
+  background-color: #ffffff;
+}
+
+input[type="checkbox"]:checked + label:before,
+input[type="checkbox"]:not(:checked) + label:before {
+  border-radius: 2px;
+}
+
+input[type="radio"]:checked + label:before,
+input[type="radio"]:not(:checked) + label:before {
+  border-radius: 100%;
+}
+
+input[type="checkbox"]:checked + label:after,
+input[type="checkbox"]:not(:checked) + label:after,
+input[type="radio"]:checked + label:after,
+input[type="radio"]:not(:checked) + label:after {
+  content: "";
+  position: absolute;
+  -webkit-transition: all 0.2s ease;
+  -moz-transition: all 0.2s ease;
+  -o-transition: all 0.2s ease;
+  transition: all 0.2s ease;
+}
+
+input[type="checkbox"]:checked + label:after,
+input[type="checkbox"]:not(:checked) + label:after {
+  left: 2px;
+  top: 5px;
+  width: 14px;
+  height: 8px;
+  border-radius: 4px;
+  border-left: 4px solid var(--success);
+  border-bottom: 4px solid var(--success);
+  -webkit-transform: rotate(-45deg);
+  -moz-transform: rotate(-45deg);
+  -o-transform: rotate(-45deg);
+  -ms-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+}
+
+input[type="radio"]:checked + label:after,
+input[type="radio"]:not(:checked) + label:after {
+  left: 5px;
+  top: 5px;
+  width: 10px;
+  height: 10px;
+  border-radius: 100%;
+  background-color: var(--success);
+}
+
+input[type="checkbox"]:not(:checked) + label:after,
+input[type="radio"]:not(:checked) + label:after {
+  opacity: 0;
+}
+
+input[type="checkbox"]:checked + label:after,
+input[type="radio"]:checked + label:after {
+  opacity: 1;
 }

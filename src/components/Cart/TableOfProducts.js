@@ -1,17 +1,20 @@
 import React from "react";
-import { Table, InputGroup } from "react-bootstrap";
+import { Table, Form } from "react-bootstrap";
 import NumericInput from "react-numeric-input";
 import { Link } from "react-router-dom";
+import TooltipComponent from "../basicComponents/Toottips";
 
 class TableOfProducts extends React.Component {
+  state = {};
+
   makeProductActive = ({ currentTarget }) => {
     currentTarget.querySelector(
-      ".input-group-text input"
-    ).checked = !currentTarget.querySelector(".input-group-text input").checked;
+      ".form-check-input"
+    ).checked = !currentTarget.querySelector(".form-check-input").checked;
   };
 
   shouldCheckAll = () => {
-    const checkBox = document.querySelectorAll(".checkbox_product");
+    const checkBox = document.querySelectorAll(".form-check-input");
     if (this.props.checkAll) {
       for (let i = 0; i < checkBox.length; i++) {
         checkBox[i].checked = true;
@@ -21,6 +24,21 @@ class TableOfProducts extends React.Component {
         checkBox[i].checked = false;
       }
     }
+  };
+
+  showNotAll = title => {
+    return (
+      <TooltipComponent text={title}>
+        <span>{title.length >= 20 ? `${title.slice(0, 20)}...` : title}</span>
+      </TooltipComponent>
+    );
+  };
+
+  changeNumericInput = (value, valueStr, input) => {
+    this.setState({
+      [input.id]: value
+    });
+    return value
   };
 
   render() {
@@ -41,14 +59,16 @@ class TableOfProducts extends React.Component {
           {cart.map((item, idx) => (
             <tr index={idx} key={idx} onClick={this.makeProductActive}>
               <td>
-                <InputGroup>
-                  <InputGroup.Checkbox
+                <Form.Group>
+                  <Form.Check
                     index={idx}
                     className="checkbox_product"
                     variant="success"
                     onClick={e => e.stopPropagation()}
+                    label=""
                   />
-                </InputGroup>
+                  <label></label>
+                </Form.Group>
               </td>
               <td>
                 <Link
@@ -61,19 +81,37 @@ class TableOfProducts extends React.Component {
                     src={require(`../../data/images/${item.category_id}/${item.images[0].filename}.png`)}
                     alt=""
                   />
-                  <h4 className="item-of-product__title">{item.name}</h4>
+                  <h4 className="item-of-product__title">
+                    {this.showNotAll(item.name)}
+                  </h4>
                 </Link>
               </td>
               <td valign="middle">
-                <div className="container-in-td">{item.regular_price}</div>
+                <div className="container-in-td">
+                  {item.regular_price.slice(
+                    0,
+                    item.regular_price.indexOf("р") - 1
+                  )}{" "}
+                  р.
+                </div>
               </td>
               <td onClick={e => e.stopPropagation()} valign="middle">
                 <div className="container-in-td">
-                  <NumericInput value={1} />
+                  <NumericInput
+                    id={idx}
+                    onChange={this.changeNumericInput}
+                    value={this.state[idx] ? this.state[idx] : 1}
+                  />
                 </div>
               </td>
               <td>
-                <div className="container-in-td">{item.regular_price}</div>
+                <div className="container-in-td">
+                  {+item.regular_price
+                    .replace(/\s+/g, "")
+                    .slice(0, item.regular_price.indexOf("р") - 2) *
+                    (this.state[idx] ? this.state[idx] : 1)}{" "}
+                  р.
+                </div>
               </td>
             </tr>
           ))}
