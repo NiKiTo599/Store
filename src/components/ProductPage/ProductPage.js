@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Row, Col, Form, Tab, ListGroup } from "react-bootstrap";
+import { Row, Col, Tab, ListGroup } from "react-bootstrap";
 import queryString from "query-string";
 
 import { connect } from "react-redux";
@@ -17,6 +17,8 @@ import ButtonCart from "./ButtonCart";
 import FormForSaleByClick from "./IsExist";
 import Description from "./Description";
 import Characteristic from "./Characteristic";
+import Comments from "./Comments";
+import Products from "../Products/Product";
 
 const graphQLOneProduct = graphql(getOneProducts, {
   options: args => {
@@ -37,13 +39,13 @@ class ProductPage extends React.Component {
     this.props.getOneProduct(this.query);
   }
 
-  shouldComponentUpdate = (nextProps) => {
+  shouldComponentUpdate = nextProps => {
     if (!this.props.id || nextProps.data.product === this.props.data.product) {
       return false;
     } else {
       return true;
     }
-  }
+  };
 
   componentDidUpdate = prevProps => {
     if (
@@ -72,28 +74,25 @@ class ProductPage extends React.Component {
         <div className="container container_for_product-page">
           <Row className="justify-content-center">
             <Col xl={10}>
-              <h1>{product.name}</h1>
+              <h1 className="product_page__title">{product.name}</h1>
             </Col>
           </Row>
-          <Row>
-            <Col xl={5}>
+          <Row className="justify-content-center">
+            <Col xl={6}>
               <ReactImageGallery
-                items={this.getImagesArray(
-                  product.images,
-                  product.category_id
-                )}
+                items={this.getImagesArray(product.images, product.category_id)}
                 showFullscreenButton={false}
                 showPlayButton={false}
               />
             </Col>
-            <Col xl={5}>
+            <Col xl={4}>
               <div className="product-page__right-container_up">
                 <p className="price-of-product">
                   {product.regular_price.slice(
                     0,
                     product.regular_price.length - 5
                   )}
-                  <i> б.р.</i>
+                  <i> р.</i>
                 </p>
                 <ButtonCart currentProduct={product} />
                 <Link to="#" className="sales">
@@ -103,13 +102,13 @@ class ProductPage extends React.Component {
               <FormForSaleByClick currentProduct={product} />
             </Col>
           </Row>
-          <Row>
-            <Col xl={12}>
+          <Row className="justify-content-center align-items-center product_page__information_container">
+            <Col xl={10}>
               <Tab.Container
                 id="list-group-tabs-example"
                 defaultActiveKey="#link1"
               >
-                <Row>
+                <Row justify-content-center align-items-center>
                   <Col sm={4}>
                     <ListGroup>
                       <ListGroup.Item variant="success" action href="#link1">
@@ -126,19 +125,26 @@ class ProductPage extends React.Component {
                   <Col sm={8}>
                     <Tab.Content>
                       <Tab.Pane eventKey="#link1">
-                        <Description
-                          descriptions={product.description}
-                        />
+                        <Description descriptions={product.description} />
                       </Tab.Pane>
                       <Tab.Pane eventKey="#link2">
-                        <Characteristic
-                          attributes={product.attributes}
-                        />
+                        <Characteristic attributes={product.attributes} />
+                      </Tab.Pane>
+                      <Tab.Pane eventKey="#link3">
+                        <Comments />
                       </Tab.Pane>
                     </Tab.Content>
                   </Col>
                 </Row>
               </Tab.Container>
+            </Col>
+          </Row>
+          <Row className="justify-content-center align-items-center">
+            <Col xl={10}>
+              <div className="additional_product">
+                <h4>Вместе с этим обычно покупают</h4>
+                <Products item={product} />
+              </div>
             </Col>
           </Row>
         </div>
@@ -147,13 +153,11 @@ class ProductPage extends React.Component {
   }
 }
 
-const mapStateToProps = ({ reducer }) => {
-  return {
-    products: reducer.products,
-    categories: reducer.categories,
-    id: reducer.id
-  };
-};
+const mapStateToProps = ({ reducer }) => ({
+  products: reducer.products,
+  categories: reducer.categories,
+  id: reducer.id
+});
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -161,4 +165,7 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default compose(connect(mapStateToProps, mapDispatchToProps),graphQLOneProduct)(ProductPage);
+export default compose(
+  connect(mapStateToProps, mapDispatchToProps),
+  graphQLOneProduct
+)(ProductPage);

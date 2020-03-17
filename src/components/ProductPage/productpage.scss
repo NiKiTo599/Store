@@ -1,37 +1,85 @@
-.product_page__title {
-  
-}
-
-.product-page__right-container_up {
-  display: flex;
-  flex-flow: column nowrap;
-  align-items: center;
-  justify-content: space-around;
-  border-radius: 1rem;
-  background-color: #f3f3f3;
-  height: 35%;
-  padding: 1rem;
-  .price-of-product {
-    font-size: 2rem;
-    i {
+.container_for_product-page {
+  .product_page__title {
+    font-weight: 700;
+    color: #218838;
+    font-size: 1.7rem;
+  }
+  .image-gallery-image {
+    border: 7px solid #218838;
+    border-left-color: rgb(255, 222, 89);
+    border-top-color: rgb(255, 222, 89);
+  }
+  .image-gallery-thumbnail.active,
+  .image-gallery-thumbnail:hover,
+  .image-gallery-thumbnail:focus {
+    border-color: #218838 !important;
+    border-left-color: rgb(255, 222, 89) !important;
+    border-top-color: rgb(255, 222, 89) !important;
+  }
+  .product-page__right-container_up {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    justify-content: center;
+    border-radius: 1rem;
+    background-color: #f3f3f3;
+    height: 35%;
+    padding: 1rem;
+    .price-of-product {
+      font-size: 2rem;
+      i {
+        color: #218838;
+      }
+    }
+    .sales {
+      text-align: center;
+      color: #218838;
+      font-size: 0.8rem;
+    }
+  }
+  .product-page__right-container_down {
+    margin-top: 3%;
+    border-radius: 1rem;
+    padding: 1rem;
+    background-color: #f3f3f3;
+  }
+  .product_page__information_container {
+    margin-top: 5rem;
+    margin-bottom: 3rem;
+    .tab-content {
+      .description_container {
+        width: 100%;
+        text-align: justify;
+        h3 {
+          font-weight: 700;
+          color: #218838;
+        }
+        p {
+          span {
+            color: #218838;
+          }
+        }
+      }
+      .characteristic_container {
+        margin-left: 10%;
+        h3 {
+          font-weight: 700;
+          color: #218838;
+        }
+        .list-group-horizontal {
+          .list-group-item {
+            width: 40%;
+            text-align: center;
+          }
+        }
+      }
+    }
+  }
+  .additional_product {
+    h4 {
+      text-align: center;
+      font-weight: 700;
       color: #218838;
     }
   }
-}
-.product-page__right-container_down {
-  margin-top: 3%;
-  border-radius: 1rem;
-  padding: 1rem;
-  background-color: #f3f3f3;
-}
-
-// Characteristic
-
-.characteristic_container {
-  .list-group-horizontal {
-    .list-group-item {
-      width: 30%;
-      text-align: center;
-    }
-  } 
 }

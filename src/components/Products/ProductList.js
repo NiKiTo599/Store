@@ -8,15 +8,6 @@ class ProductList extends React.PureComponent {
   state = {
     isLoading: false
   };
-/*
-  componentDidUpdate = prevProps => {
-    console.log(this.state.isLoading, prevProps.products !== this.props.products, prevProps.search === this.props.search);
-    if (prevProps.products !== this.props.products) {
-      this.setState({
-        isLoading: !this.state.isLoading
-      });
-    }
-  };*/
 
   render() {
     return (
