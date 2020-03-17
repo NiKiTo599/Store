@@ -1,10 +1,17 @@
 
 .title-of-category {
+  display: flex;
+  align-items: center;;
   text-align: left;
   color: #218838;
   span {
-    font-size: .8rem;
+    font-size: .9rem;
     margin: 0 .5rem;
     color: #464d47;
   }
+}
+
+.container-for-products {
+  min-height: 500px;
+  margin: 0 auto;
 }

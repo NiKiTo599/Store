@@ -108,7 +108,7 @@ class Home extends React.PureComponent {
     const { category, subCategory } = this.getCategoryAndSubCategory();
     return (
       <Layout>
-        <Container>
+        <Container className="container-for-products">
           {this.props.location.search ? (
             <>
               <Row>
@@ -126,16 +126,21 @@ class Home extends React.PureComponent {
                 </Col>
               </Row>
               <PageList location={this.props.location} />
-              {!this.state.isLoading ? (
-                <ProductList
-                  search={this.props.location.search}
-                  products={this.props.data.products}
-                />
-              ) : (
-                <Spinner animation="border" variant="success" size="big" />
-              )}
+              <section className="container-for-products">
+                {!this.state.isLoading ? (
+                  <ProductList
+                    search={this.props.location.search}
+                    products={this.props.data.products}
+                  />
+                ) : (
+                  <Spinner animation="border" variant="success" size="big" />
+                )}
+              </section>
 
-              <PageList isClicked={this.props.isClicked} location={this.props.location} />
+              <PageList
+                isClicked={this.props.isClicked}
+                location={this.props.location}
+              />
             </>
           ) : null}
         </Container>
