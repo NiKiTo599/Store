@@ -1,30 +1,58 @@
 .card-of-product {
   display: flex;
-  flex-flow: row wrap;
-  justify-content: space-between;
-  align-items: center;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: flex-start;
   border-top: 3px solid #218838;
   border-bottom: 3px solid #218838;
   margin: 1rem 0;
   min-height: 18rem;
-  padding: 1rem 0;
-  .card-of-product__left {
-    display: flex;
-    flex-flow: column nowrap;
-    .title-of-product {
-      font-size: 1.5rem;
-    }
-    .image-of-product {
-      width: 12rem;
-    }
+  padding: 1rem .5rem;
+  background-color: rgba(255, 222, 89, 0.3);
+  .title-of-product {
+    color: #218838;
+    font-weight: 700;
+    font-size: 1.5rem;
   }
-  .card-of-product__right {
+  .title-of-product {
+    color: #218838;
+    font-weight: 700;
+    font-size: 1.5rem;
+  }
+  .card-of-product__main {
     display: flex;
-    flex-flow: column nowrap;
-    .price-of-product {
-      font-size: 1.5rem;
-      i {
+    justify-content: space-between;
+    align-items: center;
+    .card-of-product__left {
+      display: flex;
+      flex-flow: column nowrap;
+      .image-of-product {
+        width: 12rem;
+      }
+    }
+    .card-of-product__right {
+      display: flex;
+      flex-flow: row nowrap;
+      justify-content: space-between;
+      align-items: center;
+      width: 60%;
+      .container_for_price {
+        display: flex;
+        flex-flow: column nowrap;
+        justify-content: center;
+        align-items: center;
+        .price-of-product {
+          font-size: 1.5rem;
+          i {
+            color: #218838;
+          }
+        }
+      }
+
+      .info_about_project {
+        width: 40%;
         color: #218838;
+        font-weight: 700;
       }
     }
   }
@@ -35,4 +63,5 @@
 .container-for-page-button {
   display: flex;
   justify-content: space-between;
+  margin: 2rem 0;
 }
