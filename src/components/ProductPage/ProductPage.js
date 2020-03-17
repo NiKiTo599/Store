@@ -78,14 +78,14 @@ class ProductPage extends React.Component {
             </Col>
           </Row>
           <Row className="justify-content-center">
-            <Col xl={6}>
+            <Col xl={6} sm={6}>
               <ReactImageGallery
                 items={this.getImagesArray(product.images, product.category_id)}
                 showFullscreenButton={false}
                 showPlayButton={false}
               />
             </Col>
-            <Col xl={4}>
+            <Col xl={4} sm={4}>
               <div className="product-page__right-container_up">
                 <p className="price-of-product">
                   {product.regular_price.slice(

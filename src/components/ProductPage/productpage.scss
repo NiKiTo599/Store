@@ -25,6 +25,7 @@
     background-color: #f3f3f3;
     height: 35%;
     padding: 1rem;
+    margin-top: 1rem;
     .price-of-product {
       font-size: 2rem;
       i {
@@ -45,6 +46,8 @@
   }
   .product_page__information_container {
     margin-top: 5rem;
+    padding-top: 2rem;
+    border-top: 5px solid #218838;
     margin-bottom: 3rem;
     .tab-content {
       .description_container {
