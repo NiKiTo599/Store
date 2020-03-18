@@ -7,8 +7,8 @@ import { fetchCount } from "../../../actions";
 
 import { graphql } from "react-apollo";
 import { compose } from "recompose";
+
 import { countOfAllProducts } from "./queries";
-import { countOfFindProducts } from '../../Home/SortSection/queries'
 
 import queryString from "query-string";
 import { ShowedPages } from "./ShowedPages";
@@ -94,8 +94,6 @@ class PageList extends React.Component {
 
 const mapStateToProps = ({ reducer, reducerSortSection }) => {
   return {
-    products: reducer.products,
-    count: reducer.count,
     category_id: reducer.category_id,
     countProducts: reducerSortSection.countProducts
   };

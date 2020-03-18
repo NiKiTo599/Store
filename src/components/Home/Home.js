@@ -1,4 +1,4 @@
-import React, { Suspense } from "react";
+import React from "react";
 import Layout from "../Layout";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDoubleRight } from "@fortawesome/free-solid-svg-icons";
@@ -8,7 +8,7 @@ import { graphql } from "react-apollo";
 import { compose } from "recompose";
 import { productsQuery } from "./queries";
 
-import { saveProductCategoriesID, saveProducts } from "../../actions";
+import { saveProductCategoriesID } from "../../actions";
 
 import { connect } from "react-redux";
 

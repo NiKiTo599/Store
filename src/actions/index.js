@@ -56,7 +56,7 @@ export function getOneProduct(id) {
 
 function getAttributes(attr) {
   return {
-    type: "GET_ATTRIBUTES",
+    type: GET_ATTRIBUTES,
     attr
   };
 }

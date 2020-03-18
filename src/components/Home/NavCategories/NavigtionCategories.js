@@ -40,50 +40,47 @@ class NavigtionCategories extends React.Component {
     if (this.props.categories) {
       const keys = Object.keys(this.props.categories);
       return keys.length > 1 ? (
-        <>
-          <ul className="categories-list">
-            {keys.map((item, idx) => (
-              <>
-                {this.props.categories[item].length !== 1 ? (
-                  <li
-                    key={idx}
-                    className="list__main-item"
-                    onClick={this.handleClick}
+        <ul className="categories-list">
+          {keys.map((item, idx) => (
+            <>
+              {this.props.categories[item].length !== 1 ? (
+                <li
+                  key={idx * Math.random() * 100}
+                  className="list__main-item"
+                  onClick={this.handleClick}
+                >
+                  <span>{item}</span>
+                  <div className="container-for-svg">
+                    <FontAwesomeIcon icon={faAngleDown} />
+                  </div>
+                  <ul className="sub-list" onClick={e => e.stopPropagation()}>
+                    {this.props.categories[item].map((subItem, index) => (
+                      <li key={index * Math.random() * 100} className="sub-list__item">
+                        <Link
+                          className="nav__link"
+                          key={index * Math.random() * 100}
+                          to={`/home?query=${subItem._id}&page=1&selection=false`}
+                        >
+                          <FontAwesomeIcon icon={faChevronRight} />
+                          {subItem.name}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </li>
+              ) : (
+                <li key={idx * Math.random() * 100} className="list__main-item">
+                  <Link
+                    className="nav__link"
+                    to={`/home?query=${this.props.categories[item][0]._id}&page=1&selection=false`}
                   >
                     <span>{item}</span>
-                    <div className="container-for-svg">
-                      <FontAwesomeIcon icon={faAngleDown} />
-                    </div>
-                    <ul className="sub-list" onClick={e => e.stopPropagation()}>
-                      {this.props.categories[item].map((subItem, idx) => (
-                        <li key={idx} className="sub-list__item">
-                          <Link
-                            className="nav__link"
-                            key={idx}
-                            to={`/home?query=${subItem._id}&page=1&selection=false`}
-                          >
-                            <FontAwesomeIcon icon={faChevronRight} />
-                            {subItem.name}
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
-                  </li>
-                ) : (
-                  <li key={idx} className="list__main-item">
-                    <Link
-                      className="nav__link"
-                      key={idx}
-                      to={`/home?query=${this.props.categories[item][0]._id}&page=1&selection=false`}
-                    >
-                      <span>{item}</span>
-                    </Link>
-                  </li>
-                )}
-              </>
-            ))}
-          </ul>
-        </>
+                  </Link>
+                </li>
+              )}
+            </>
+          ))}
+        </ul>
       ) : null;
     } else {
       return null;

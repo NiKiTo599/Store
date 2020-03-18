@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Row, Col, Form } from "react-bootstrap";
+import { Button, Form } from "react-bootstrap";
 const FormForSaleByClick = ({ currentProduct }) => (
   <div className="product-page__right-container_down">
     {currentProduct.stock.slice(0, 8) === "добавить" ? (

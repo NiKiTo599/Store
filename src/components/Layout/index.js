@@ -1,8 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import logo from "../../data/images/logo.png";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 
 import "./index.scss";
 import NavigtionCategories from "../Home/NavCategories/NavigtionCategories";
