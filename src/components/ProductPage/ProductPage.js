@@ -9,6 +9,7 @@ import Layout from "../Layout";
 import { graphql } from "react-apollo";
 import { compose } from "recompose";
 import { getOneProducts } from "./queries";
+import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 
 import "./productpage.scss";
 import ReactImageGallery from "react-image-gallery";
@@ -19,6 +20,7 @@ import Description from "./Description";
 import Characteristic from "./Characteristic";
 import Comments from "./Comments";
 import Products from "../Products/Product";
+import ToastComponent from "../basicComponents/Toast";
 
 const graphQLOneProduct = graphql(getOneProducts, {
   options: args => {
@@ -31,7 +33,7 @@ const graphQLOneProduct = graphql(getOneProducts, {
   }
 });
 
-class ProductPage extends React.Component {
+class ProductPage extends React.PureComponent {
   constructor(props) {
     super(props);
     this.parsedURL = queryString.parse(this.props.location.search);
@@ -39,11 +41,14 @@ class ProductPage extends React.Component {
     this.props.getOneProduct(this.query);
   }
 
-  shouldComponentUpdate = nextProps => {
-    if (!this.props.id || nextProps.data.product === this.props.data.product) {
-      return false;
-    } else {
-      return true;
+  state = {
+    show: false,
+    notification: {
+      header: "Корзина",
+      text: "",
+      icon: faShoppingCart,
+      link: "/cart",
+      linkText: "Перейти в корзину"
     }
   };
 
@@ -67,6 +72,27 @@ class ProductPage extends React.Component {
     });
   };
 
+  makeNotifications = (e, bool, classSelector) => {
+    if (e) {
+      const { target } = e;
+      if (target.classList.contains("btn")) {
+        this.setState({
+          show: bool,
+          notification: {
+            ...this.state.notification,
+            text: `${
+              document.querySelector(classSelector).innerHTML
+            } добавлен(а) в корзину`
+          }
+        });
+      }
+    } else {
+      this.setState({
+        show: bool
+      });
+    }
+  };
+
   render() {
     const { product } = this.props.data;
     return product ? (
@@ -85,7 +111,13 @@ class ProductPage extends React.Component {
                 showPlayButton={false}
               />
             </Col>
-            <Col xl={4} sm={4}>
+            <Col
+              xl={4}
+              sm={4}
+              onClick={e =>
+                this.makeNotifications(e, true, ".product_page__title")
+              }
+            >
               <div className="product-page__right-container_up">
                 <p className="price-of-product">
                   {product.regular_price.slice(
@@ -108,7 +140,7 @@ class ProductPage extends React.Component {
                 id="list-group-tabs-example"
                 defaultActiveKey="#link1"
               >
-                <Row justify-content-center align-items-center>
+                <Row className="justify-content-center align-items-center">
                   <Col sm={4}>
                     <ListGroup>
                       <ListGroup.Item variant="success" action href="#link1">
@@ -148,6 +180,11 @@ class ProductPage extends React.Component {
             </Col>
           </Row>
         </div>
+        <ToastComponent
+          show={this.state.show}
+          setShow={(e, bool) => this.makeNotifications(e, bool)}
+          notification={this.state.notification}
+        />
       </Layout>
     ) : null;
   }
@@ -155,7 +192,6 @@ class ProductPage extends React.Component {
 
 const mapStateToProps = ({ reducer }) => ({
   products: reducer.products,
-  categories: reducer.categories,
   id: reducer.id
 });
 

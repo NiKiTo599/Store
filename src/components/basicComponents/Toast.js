@@ -1,27 +1,37 @@
 import React from "react";
 import { Toast } from "react-bootstrap";
 
+import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Link } from "react-router-dom";
+
 class ToastComponent extends React.PureComponent {
   render() {
+    const { notification } = this.props;
     return (
       <div
         style={{
           position: "fixed",
-          top: "90%",
+          top: "80%",
           right: "10%"
         }}
       >
         <Toast
-          onClose={() => this.props.setShow(false)}
+          onClose={e => this.props.setShow(e, false)}
           show={this.props.show}
-          delay={3000}
+          delay={5000}
           autohide
         >
           <Toast.Header>
-            <strong className="mr-auto">Bootstrap</strong>
-            <small>just now</small>
+            <FontAwesomeIcon icon={faShoppingCart} />
+            <strong className="mr-auto">{notification.header}</strong>
+            <small>прямо сейчас</small>
           </Toast.Header>
-          <Toast.Body>See? Just like this.</Toast.Body>
+          <Toast.Body>
+            <p>{notification.text}</p>
+            <Link to={notification.link}>{notification.linkText}</Link>
+          </Toast.Body>
         </Toast>
       </div>
     );
