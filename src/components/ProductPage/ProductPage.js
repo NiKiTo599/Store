@@ -76,13 +76,12 @@ class ProductPage extends React.PureComponent {
     if (e) {
       const { target } = e;
       if (target.classList.contains("btn")) {
+        const text = document.querySelector(classSelector).innerHTML;
         this.setState({
           show: bool,
           notification: {
             ...this.state.notification,
-            text: `${
-              document.querySelector(classSelector).innerHTML
-            } добавлен(а) в корзину`
+            text: !this.props.cart.some(item => item.name === text) ? `${text} добавлен(а) в корзину` : `${text} уже был(а) добавлен(а) в корзину`
           }
         });
       }
@@ -190,9 +189,10 @@ class ProductPage extends React.PureComponent {
   }
 }
 
-const mapStateToProps = ({ reducer }) => ({
+const mapStateToProps = ({ reducer, reducerCart }) => ({
   products: reducer.products,
-  id: reducer.id
+  id: reducer.id,
+  cart: reducerCart.cart
 });
 
 const mapDispatchToProps = dispatch => {
