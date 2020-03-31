@@ -2,7 +2,7 @@
   display: flex;
   flex-flow: column nowrap;
   align-items: flex-start;
-  background-color: #F3F3F3;
+  background-color: #f3f3f3;
   padding: 1.5rem;
   .sort-attribute {
     display: flex;
@@ -16,7 +16,7 @@
     span {
       color: #464d47;
       margin: 0 1rem;
-      padding: .2rem;
+      padding: 0.2rem;
       border-radius: 5px;
     }
     .highlight {
@@ -29,3 +29,12 @@
     }
   }
 }
+
+/* 
+.fa-filter {
+  font-size: 1.5rem;
+  color: rgb(255, 222, 89);
+  position: absolute;
+  right: 28%;
+  top: 0.2%;
+} */

@@ -20,6 +20,8 @@ import { allAttributesQuery } from "./queries";
 import "./sort.scss";
 import AttributeSortButton from "./AttributeSortButton";
 import TooltipComponent from "../../basicComponents/Toottips";
+import { Row, Col } from "react-bootstrap";
+import SortSectionForMobile from "./SortSectionForMobile";
 
 const graphQLAllAttributes = graphql(allAttributesQuery, {
   options: ({ category_id }) => {
@@ -85,37 +87,59 @@ class SortSection extends React.Component {
     }
   };
 
+
   render() {
+    const { width } = window.screen;
     if (this.props.data.productsAttributes) {
       const allAtributesOfProducts = this.getAttributesFromData();
       const keys = Object.keys(allAtributesOfProducts);
       return (
-        <div className="container-for-sort">
-          {keys.map((elem, index) => (
-            <p
-              key={index}
-              onClick={this.highlightAttribute}
-              className="sort-attribute"
-            >
-              <b>{elem}</b>:{" "}
-              {allAtributesOfProducts[elem].map((item, index) => (
-                <span className="attribute" key={index}>
-                  {item}
-                </span>
-              ))}
-              <TooltipComponent text={"Сбросить категорию"}>
-                <FontAwesomeIcon icon={faTrashAlt} />
-              </TooltipComponent>
-            </p>
-          ))}
-          <AttributeSortButton
-            saveFoundProducts={this.props.saveFoundProducts}
-            arrayOfAllAtributes={this.props.arrayOfAllAtributes}
-            isSort={this.props.isSort}
-            isClicked={this.props.isClicked}
-            query={this.props.query}
-          />
-        </div>
+        <>
+          {width <= 768 ? (
+            <SortSectionForMobile
+              arrayOfAllAtributes={this.props.arrayOfAllAtributes}
+              isSort={this.props.isSort}
+              saveFoundProducts={this.props.saveFoundProducts}
+              nameOfCategoryOfAttributes={keys}
+              attributes={allAtributesOfProducts}
+              isClicked={this.props.isClicked}
+              query={this.props.query}
+              highlightAttribute={this.props.highlightAttribute}
+              unHighlightAttribute={this.props.unHighlightAttribute}
+            />
+          ) : (
+            <Row>
+              <Col>
+                <div className="container-for-sort">
+                  {keys.map((elem, index) => (
+                    <p
+                      key={index}
+                      onClick={this.highlightAttribute}
+                      className="sort-attribute"
+                    >
+                      <b>{elem}</b>:{" "}
+                      {allAtributesOfProducts[elem].map((item, index) => (
+                        <span className="attribute" key={index}>
+                          {item}
+                        </span>
+                      ))}
+                      <TooltipComponent text={"Сбросить категорию"}>
+                        <FontAwesomeIcon icon={faTrashAlt} />
+                      </TooltipComponent>
+                    </p>
+                  ))}
+                  <AttributeSortButton
+                    saveFoundProducts={this.props.saveFoundProducts}
+                    arrayOfAllAtributes={this.props.arrayOfAllAtributes}
+                    isSort={this.props.isSort}
+                    isClicked={this.props.isClicked}
+                    query={this.props.query}
+                  />
+                </div>
+              </Col>
+            </Row>
+          )}
+        </>
       );
     } else {
       return null;
