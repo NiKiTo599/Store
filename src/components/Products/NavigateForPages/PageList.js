@@ -1,7 +1,6 @@
 import React from "react";
 import "../products.scss";
-import { Button, Row, Col } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Row, Col } from "react-bootstrap";
 import { connect } from "react-redux";
 import { fetchCount } from "../../../actions";
 
@@ -66,11 +65,13 @@ class PageList extends React.Component {
   render() {
     const { page, query } = this.state;
     let count;
-    if (this.props.countProducts) {
+    const { width } = window.screen;
+    /*if (this.props.countProducts) {
       count = this.props.countProducts;
     } else {
       count = this.props.data.count;
-    }
+    }*/
+    count = 200;
     const lastPage = Math.ceil(count / 10);
     let reason = this.page === lastPage;
     this.getStylesForButtons(reason);
@@ -78,13 +79,13 @@ class PageList extends React.Component {
       <Row>
         <Col>
           <div className="container-for-page-button">
-            <Link to={`/home?query=${query}&page=${page !== 1 ? page - 1 : 1}`}>
-              <Button variant={this.prevButton}>Предыдущая</Button>
-            </Link>
-            <ShowedPages page={page} count={lastPage} query={query} />
-            <Link to={`/home?query=${query}&page=${reason ? page : page + 1}`}>
-              <Button variant={this.nextButton}>Следующая</Button>
-            </Link>
+            <ShowedPages
+              size={window.screen.width >= 450 ? "lg" : "sm"}
+              page={page}
+              count={lastPage}
+              query={query}
+              width={width}
+            />
           </div>
         </Col>
       </Row>

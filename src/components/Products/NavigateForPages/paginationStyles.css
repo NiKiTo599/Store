@@ -1,0 +1,17 @@
+.page-item > .page-link {
+  color: white !important;
+  background-color: #218838 !important;
+  border: 1px solid #218838 !important;
+  border-radius: .3rem;
+}
+
+.page-item.active > .page-link {
+  color: #218838 !important;
+  background-color: white !important;
+  border: 1px solid #218838 !important;
+}
+
+a:hover {
+  text-decoration: underline !important;
+  color: #218838 !important;
+}
