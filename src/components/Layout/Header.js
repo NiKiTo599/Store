@@ -21,7 +21,7 @@ const showSearchBar = () => {
 const Header = ({ cart, width }) => (
   <header className="header">
     <nav className="container-nav">
-      {width <= 768 ? (
+      {width <= 900 ? (
         <div
           className="container-nav__link"
           onClick={() => showMenu("hide_nav_categories")}
@@ -53,7 +53,7 @@ const Header = ({ cart, width }) => (
           <div className="nav-cart">
             <FontAwesomeIcon icon={faShoppingCart} />
             <span>
-              {width <= 768
+              {width <= 900
                 ? cart.length === 0
                   ? 0
                   : cart.length

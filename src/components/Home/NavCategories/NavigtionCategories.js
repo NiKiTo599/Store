@@ -99,7 +99,7 @@ class NavigtionCategories extends React.Component {
       );
       return keys.length > 1 ? (
         <>
-          {width <= 768 ? (
+          {width <= 900 ? (
             <HideMenu title="Категории" hiddenClass="hide_nav_categories">
               {navCatComponent}
             </HideMenu>

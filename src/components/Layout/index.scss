@@ -52,13 +52,13 @@
         font-size: 1rem;
       }
     }
-    @media screen and (max-width: 768px) {
+    @media screen and (max-width: 900px) {
       .nav-cart {
         border-bottom-left-radius: 5px;
       }
     }
   }
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 900px) {
     .container-nav {
       .container-nav__link {
         margin-left: 0;

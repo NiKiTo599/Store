@@ -40,6 +40,9 @@
 
 .react-numeric-input {
   width: 50%;
+  @media screen and (max-width: 1024px) {
+    width: 100%;
+  }
   input {
     width: 100%;
     outline: var(--success) solid 2px;
@@ -56,12 +59,20 @@
     text-align: center;
     font-size: 0.9rem;
     white-space: nowrap;
+    @media screen and (max-width: 1024px) {
+      font-size: .7rem;
+      width: 1rem;
+    }
+    padding: .3rem !important;
     .input-group-text {
       background-color: transparent !important;
       border: none !important;
       input {
         background-color: var(--success) !important;
       }
+    }
+    .container-in-td {
+      width: 100%;
     }
   }
 }
