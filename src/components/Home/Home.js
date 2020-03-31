@@ -111,20 +111,20 @@ class Home extends React.PureComponent {
         <Container className="container-for-products">
           {this.props.location.search ? (
             <>
-              <Row>
-                <Col xl={12}>
-                  <p className="title-of-category">
-                    <span>{category}</span>
-                    <FontAwesomeIcon icon={faAngleDoubleRight} />{" "}
-                    <span>{subCategory}</span>
-                  </p>
-                </Col>
-              </Row>
-              <Row>
-                <Col>
-                  <SortSection query={this.query} />
-                </Col>
-              </Row>
+              {window.screen.width <= 768 ? null : (
+                <Row>
+                  <Col xl={12}>
+                    <p className="title-of-category">
+                      <span>{category}</span>
+                      <FontAwesomeIcon icon={faAngleDoubleRight} />{" "}
+                      <span>{subCategory}</span>
+                    </p>
+                  </Col>
+                </Row>
+              )}
+
+              <SortSection query={this.query} />
+
               <PageList location={this.props.location} />
               <section className="container-for-products">
                 {!this.state.isLoading ? (

@@ -51,6 +51,7 @@ class ProductList extends React.PureComponent {
                   <Col
                     onClick={e => this.makeNotifications(e, true, ".title-of-product h3")}
                     xl={9}
+                    md={12}
                   >
                     <Products item={item} />
                   </Col>

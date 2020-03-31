@@ -8,25 +8,36 @@
   margin: 1rem 0;
   min-height: 18rem;
   padding: 1rem .5rem;
-  .title-of-product {
-    color: #218838;
-    font-weight: 700;
-    font-size: 1.5rem;
+  @media screen and (max-width: 425px) {
+    min-height: 0;
   }
-  .title-of-product {
+  .title-of-product h3 {
     color: #218838;
     font-weight: 700;
-    font-size: 1.5rem;
+    @media screen and (max-width: 768px) {
+      font-size: 1.3rem;
+    }
+    @media screen and (max-width: 425px) {
+      font-size: 1rem;
+    }
   }
   .card-of-product__main {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    width: 100%;
     .card-of-product__left {
       display: flex;
       flex-flow: column nowrap;
+      width: 40%;
       .image-of-product {
         width: 12rem;
+        @media screen and (max-width: 768px) {
+          width: 10rem;
+        }
+        @media screen and (max-width: 375px) {
+          width: 7rem;
+        }
       }
     }
     .card-of-product__right {
@@ -35,13 +46,28 @@
       justify-content: space-between;
       align-items: center;
       width: 60%;
+      @media screen and (max-width: 768px) {
+        justify-content: center;
+      }
+      @media screen and (max-width: 425px) {
+        justify-content: flex-end;
+      }
       .container_for_price {
         display: flex;
         flex-flow: column nowrap;
         justify-content: center;
         align-items: center;
+        .btn {
+          @media screen and (max-width: 425px) {
+            font-size: .8rem;
+            width: 8rem;
+          }
+        }
         .price-of-product {
           font-size: 1.5rem;
+          @media screen and (max-width: 425px) {
+            font-size: 1rem;
+          }
           i {
             color: #218838;
           }
@@ -61,6 +87,6 @@
 
 .container-for-page-button {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   margin: 2rem 0;
 }

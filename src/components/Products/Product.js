@@ -21,9 +21,11 @@ export default class Products extends React.Component {
             />
           </div>
           <div className="card-of-product__right">
-            <p className="info_about_project">
-              Заказывай сегодня и мы доставим в ближайшее время!
-            </p>
+            {window.screen.width >= 769 ? (
+              <p className="info_about_project">
+                Заказывай сегодня и мы доставим в ближайшее время!
+              </p>
+            ) : null}
             <div className="container_for_price">
               <p className="price-of-product">
                 {item.regular_price}
