@@ -1,8 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
 import AutoSuggest from "react-autosuggest";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
 import { graphql } from "react-apollo";
 import { compose } from "recompose";
@@ -36,10 +34,11 @@ const rendersuggestion = suggestion => (
   </div>
 );
 
+
+
 const renderInputComponent = inputProps => (
   <div className="container-for-search-bar">
     <input {...inputProps} className="search-bar" />
-    <FontAwesomeIcon icon={faSearch} />
   </div>
 );
 
@@ -75,11 +74,12 @@ class Search extends React.Component {
 
   render() {
     const { suggestions } = this.state;
-    const { handleChange, name } = this.props;
+    const { handleChange, name, width } = this.props;
     const inputProps = {
       placeholder: "Я ищу...",
       value: name,
-      onChange: handleChange
+      onChange: handleChange,
+      width: width
     };
     return (
       <AutoSuggest

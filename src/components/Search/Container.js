@@ -14,8 +14,9 @@ export default class ContainerForSerch extends React.PureComponent {
   };
 
   render () {
+    const { width } = this.props;
     return (
-      <Search handleChange={this.onChange} name={this.state.valueForSearch}/>
+      <Search width={width} handleChange={this.onChange} name={this.state.valueForSearch}/>
     )
   }
 }

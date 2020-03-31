@@ -1,6 +1,5 @@
 .container-for-search-bar {
   margin: 2rem 0;
-  position: relative;
   .search-bar {
     width: 40vw;
     height: 3rem;
@@ -11,20 +10,36 @@
     border-radius: 2rem;
     outline: none;
     padding: 1rem;
-    position: relative;
   }
   svg {
+    opacity: 0;
     font-size: 1.5rem;
     color: #218838;
     position: absolute;
-    right: 3%;
-    top: 30%;
+    right: 21%;
+    top: 10.5%;
+  }
+}
+@media screen and (max-width: 768px) {
+  .container-for-search-bar {
+    margin: 0.5rem;
+    .search-bar {
+      width: 90vw;
+    }
   }
 }
 
+@media screen and (max-width: 425px) {
+  .container-for-search-bar {
+    display: none;
+  }
+  .display {
+    display: block;
+  }
+}
 .container-for-suggestion {
   display: flex;
-  margin: .5rem 0;
+  margin: 0.5rem 0;
   align-items: center;
   img {
     width: 6rem;
