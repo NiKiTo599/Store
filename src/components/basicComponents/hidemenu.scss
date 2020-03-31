@@ -1,0 +1,76 @@
+.hide_menu {
+  background-color: #f3f3f3;
+  top: 0;
+  bottom: 0;
+  left: -220px;
+  position: fixed;
+  width: 220px;
+  overflow-y: scroll;
+  z-index: 0;
+  -webkit-transition: left 0.5s linear;
+  -moz-transition: left 0.5s linear;
+  transition: left 0.5s linear;
+  .fa-times {
+    font-size: 1.5rem;
+    color: #218838;
+    position: absolute;
+    top: 2%;
+    right: 11%;
+  }
+}
+
+@media screen and (min-width: 426px) and (max-width: 768px) {
+  .hide_menu {
+    left: -420px;
+    width: 420px;
+    padding: 1.5rem;
+    h5 {
+      font-size: 1.2rem;
+      color: #218838;
+      font-weight: 700;
+    }
+    .container_for_sort-attribute {
+      h6 {
+        font-size: 1rem;
+        color: #218838;
+      }
+      label {
+        margin-right: 0.5rem;
+      }
+    }
+  }
+  .hide_menu-to-left {
+    left: 0;
+  }
+  .goLeft {
+    left: 420px;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .hide_menu {
+    padding: 1rem;
+    left: -220px;
+    width: 220px;
+    h5 {
+      font-size: 1.2rem;
+      color: #218838;
+      font-weight: 700;
+    }
+    .container_for_sort-attribute {
+      h6 {
+        font-size: 1rem;
+        color: #218838;
+      }
+      label {
+        margin-right: 0.5rem;
+      }
+    }
+  }
+  .hide_menu-to-left {
+    left: 0;
+  }
+  .goLeft {
+    left: 220px;
+  }
+}
