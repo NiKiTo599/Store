@@ -1,4 +1,14 @@
 .container_cart {
+  width: 100%;
+  h2 {
+    margin-top: 1rem;
+  }
+  .cart_paragraph {
+    margin: 1rem auto;
+    text-align: center;
+    font-size: 1.5rem;
+    color: var(--success);
+  }
   .input-group-prepend {
     background-color: rgb(255, 222, 89);
     cursor: pointer;
@@ -30,17 +40,22 @@
   }
   .container_for_actions {
     display: flex;
-    justify-content: space-around;
+    flex-flow: row wrap;
+    justify-content: flex-start;
     align-items: center;
+    width: 100%;
+    background-color: rgb(243, 243, 243);
+    padding: 0.1rem 1rem;
+    border-radius: 0.5rem;
     .input-group {
-      width: inherit;
+      width: 3rem;
     }
   }
 }
 
 .react-numeric-input {
   width: 50%;
-  @media screen and (max-width: 1024px) {
+  @media screen and (max-width: 1024px) and (min-width: 581px) {
     width: 100%;
   }
   input {
@@ -53,6 +68,64 @@
 //For table\
 
 .table-cart {
+  .product_of_cart_mobile {
+    border: 3px solid var(--success);
+    border-radius: 0.5rem;
+    border-top-left-radius: 1rem;
+    margin: 0.5rem 0;
+    .container_for_top {
+      display: flex;
+      flex-flow: row nowrap;
+      background-color: rgba(255, 222, 89, 0.76);
+      padding: 0.5rem;
+      .form-group {
+        display: flex;
+        justify-content: center;
+        align-items: 3rem;
+        width: 3rem;
+        height: 3rem;
+        margin: 0;
+        background-color: rgb(243, 243, 243);
+        border-radius: 0.5rem;
+        border: 3px solid rgb(243, 243, 243);
+        z-index: 100;
+        position: relative;
+        right: calc(3px + 0.5rem);
+        bottom: calc(3px + 0.5rem);
+      }
+      .cart__item-of-product {
+        display: inline-block;
+        width: 80%;
+        text-align: center;
+        color: var(--success);
+        text-decoration: none;
+        .item-of-product__title {
+          font-weight: 700;
+        }
+      }
+    }
+    .container_for_bottom {
+      display: flex;
+      flex-flow: row nowrap;
+      padding: .7rem .5rem;
+      background-color: rgb(243, 243, 243);
+      .item-of-product__img {
+      width: 30%;
+    }
+    .container_for_bottom_right {
+      display: flex;
+      flex-flow: column wrap;
+      width: 70%;
+      justify-content: center;
+      align-items: center;
+      p {
+        font-size: 1.5rem;
+        color: var(--success);
+      }
+    }
+    }
+    
+  }
   td,
   th {
     vertical-align: middle !important;
@@ -60,10 +133,10 @@
     font-size: 0.9rem;
     white-space: nowrap;
     @media screen and (max-width: 1024px) {
-      font-size: .7rem;
+      font-size: 0.7rem;
       width: 1rem;
     }
-    padding: .3rem !important;
+    padding: 0.3rem !important;
     .input-group-text {
       background-color: transparent !important;
       border: none !important;
