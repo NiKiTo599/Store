@@ -18,7 +18,7 @@ const showSearchBar = () => {
     .classList.toggle("display");
 };
 
-const Header = ({ cart, width }) => (
+const Header = ({ cart, width, category_id }) => (
   <header className="header">
     <nav className="container-nav">
       {width <= 900 ? (
@@ -33,7 +33,7 @@ const Header = ({ cart, width }) => (
         <img className="nav-logo" src={logo} alt="logo" />
       </Link>
       <div className="container_for_instruments">
-        {width <= 768 ? (
+        {width <= 768 && category_id ? (
           <div className="nav-cart">
             <FontAwesomeIcon
               onClick={() => showMenu("hide_sort")}
@@ -43,10 +43,7 @@ const Header = ({ cart, width }) => (
         ) : null}
         {width <= 425 ? (
           <div className="nav-cart">
-            <FontAwesomeIcon
-              onClick={showSearchBar}
-              icon={faSearch}
-            />
+            <FontAwesomeIcon onClick={showSearchBar} icon={faSearch} />
           </div>
         ) : null}
         <Link className="container-nav__link" to="/cart">
@@ -68,9 +65,10 @@ const Header = ({ cart, width }) => (
   </header>
 );
 
-const mapStateToProps = ({ reducerCart }) => {
+const mapStateToProps = ({ reducerCart, reducer }) => {
   return {
-    cart: reducerCart.cart
+    cart: reducerCart.cart,
+    category_id: reducer.category_id
   };
 };
 
