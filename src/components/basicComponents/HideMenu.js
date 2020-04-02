@@ -7,7 +7,6 @@ import { faTimes } from "@fortawesome/free-solid-svg-icons";
 export const showMenu = hiddenClass => {
   document.querySelector("body").classList.toggle("goLeft");
   const hideMenu = document.querySelector(`.${hiddenClass}`);
-  console.log(hiddenClass, hideMenu);
   if (hideMenu) {
     hideMenu.classList.toggle("hide_menu-to-left");
   }

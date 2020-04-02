@@ -2,7 +2,9 @@ export const HIGHLIGHT_ATTRIBUTE = "HIGHLIGHT_ATTRIBUTE",
   UNHIGHLIGHT_ATTRIBUTE = "UNHIGHLIGHT_ATTRIBUTE",
   DELETE_ONE_FIELD = "DELETE_ONE_FIELD",
   DELETE_ALL_ATTRIBUTES = "DELETE_ALL_ATTRIBUTES",
-  CLICK_SHOW_SELECTION = "CLICK_SHOW_SELECTION", SAVE_FOUND_PRODUCTS = "SAVE_FOUND_PRODUCTS";
+  CLICK_SHOW_SELECTION = "CLICK_SHOW_SELECTION",
+  SAVE_FOUND_PRODUCTS = "SAVE_FOUND_PRODUCTS",
+  EXIST_SORT_ATTRIBUTES = "EXIST_SORT_ATTRIBUTES";
 
 export function highlightAttribute(attr) {
   return {
@@ -38,9 +40,16 @@ export function clickShow(bool) {
   };
 }
 
-export function saveFoundProducts (num) {
+export function saveFoundProducts(num) {
   return {
     type: SAVE_FOUND_PRODUCTS,
     num
+  };
+}
+
+export function existSortAttributes(attr) {
+  return {
+    type: EXIST_SORT_ATTRIBUTES,
+    isExist: !!attr
   };
 }

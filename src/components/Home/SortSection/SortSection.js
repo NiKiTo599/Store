@@ -7,7 +7,8 @@ import {
   deleteOneField,
   clickShow,
   saveFoundProducts,
-  deleteAllAttributes
+  deleteAllAttributes,
+  existSortAttributes
 } from "./../../../actions/sortSectionAction";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -91,6 +92,7 @@ class SortSection extends React.Component {
   render() {
     const { width } = window.screen;
     if (this.props.data.productsAttributes) {
+      this.props.existSortAttributes(this.props.data.productsAttributes)
       const allAtributesOfProducts = this.getAttributesFromData();
       const keys = Object.keys(allAtributesOfProducts);
       return (
@@ -164,7 +166,8 @@ const mapDispatchToProps = dispatch => {
     deleteOneField: field => dispatch(deleteOneField(field)),
     deleteAllAttributes: () => dispatch(deleteAllAttributes()),
     isSort: bool => dispatch(clickShow(bool)),
-    saveFoundProducts: num => dispatch(saveFoundProducts(num))
+    saveFoundProducts: num => dispatch(saveFoundProducts(num)),
+    existSortAttributes: attr => dispatch(existSortAttributes(attr))
   };
 };
 

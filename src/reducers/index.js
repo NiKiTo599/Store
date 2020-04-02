@@ -13,7 +13,8 @@ import {
   DELETE_ONE_FIELD,
   CLICK_SHOW_SELECTION,
   SAVE_FOUND_PRODUCTS,
-  DELETE_ALL_ATTRIBUTES
+  DELETE_ALL_ATTRIBUTES,
+  EXIST_SORT_ATTRIBUTES
 } from "../actions/sortSectionAction";
 
 const initialState = {
@@ -23,7 +24,8 @@ const initialState = {
   attributesForSearch: {},
   selectedProducts: [],
   isClicked: false,
-  arrayOfAllAtributes: []
+  arrayOfAllAtributes: [],
+  isExistAttributes: false
 };
 
 export function reducer(state = initialState, action) {
@@ -145,6 +147,11 @@ export function reducerSortSection(state = initialState, action) {
       return Object.assign({}, state, {
         attributesForSearch: {},
         arrayOfAllAtributes: []
+      });
+    }
+    case EXIST_SORT_ATTRIBUTES: {
+      return Object.assign({}, state, {
+        isExistAttributes: action.isExist
       });
     }
     default:

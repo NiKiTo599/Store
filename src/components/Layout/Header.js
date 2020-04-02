@@ -18,7 +18,7 @@ const showSearchBar = () => {
     .classList.toggle("display");
 };
 
-const Header = ({ cart, width, category_id }) => (
+const Header = ({ cart, width, isExistAttributes }) => (
   <header className="header">
     <nav className="container-nav">
       {width <= 900 ? (
@@ -33,7 +33,7 @@ const Header = ({ cart, width, category_id }) => (
         <img className="nav-logo" src={logo} alt="logo" />
       </Link>
       <div className="container_for_instruments">
-        {width <= 768 && category_id ? (
+        {width <= 768 && isExistAttributes ? (
           <div className="nav-cart">
             <FontAwesomeIcon
               onClick={() => showMenu("hide_sort")}
@@ -65,10 +65,10 @@ const Header = ({ cart, width, category_id }) => (
   </header>
 );
 
-const mapStateToProps = ({ reducerCart, reducer }) => {
+const mapStateToProps = ({ reducerCart, reducerSortSection }) => {
   return {
     cart: reducerCart.cart,
-    category_id: reducer.category_id
+    isExistAttributes: reducerSortSection.isExistAttributes
   };
 };
 
