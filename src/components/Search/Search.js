@@ -7,6 +7,9 @@ import { compose } from "recompose";
 import { searchProducts } from "./queries";
 
 import "./search.scss";
+import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 
 const graphQLSearchProducts = graphql(searchProducts, {
   options: ({ name }) => {
@@ -21,20 +24,26 @@ const graphQLSearchProducts = graphql(searchProducts, {
 const getSuggestionValue = suggestion => suggestion.name;
 
 const rendersuggestion = suggestion => (
-  <div className="container-for-suggestion">
-    <img
-      className="image-of-product"
-      src={require(`../../data/images/${suggestion.category_id}/${suggestion.images[0].filename}.png`)}
-      alt=""
-    />
-    <div className="suggest-info">
-      <p className="suggestion-title">{suggestion.name}</p>
-      <p className="suggestion-price">{suggestion.regular_price}</p>
+  <Link
+    style={{
+      textDecoration: "none"
+    }}
+    to={`/product?id=${suggestion._id}`}
+  >
+    <div className="react-autosuggest__suggestion">
+      <img
+        className="image-of-product"
+        src={require(`../../data/images/${suggestion.category_id}/${suggestion.images[0].filename}.png`)}
+        alt=""
+      />
+      <div className="suggest-info">
+        <p className="suggestion-title">{suggestion.name}</p>
+        <p className="suggestion-price">{suggestion.regular_price}</p>
+      </div>
+      <FontAwesomeIcon icon={faChevronRight}/>
     </div>
-  </div>
+  </Link>
 );
-
-
 
 const renderInputComponent = inputProps => (
   <div className="container-for-search-bar">
@@ -72,6 +81,14 @@ class Search extends React.Component {
     });
   };
 
+  /* onSuggestionHighlighted = ({ suggestion }) => {
+    //console.log(suggestion)
+  } */
+
+  onSuggestionSelected(event, { suggestion, suggestionValue, suggestionIndex, sectionIndex, method }) {
+    window.location.assign(`/product?id=${suggestion._id}`)
+  }
+
   render() {
     const { suggestions } = this.state;
     const { handleChange, name, width } = this.props;
@@ -90,6 +107,9 @@ class Search extends React.Component {
         renderSuggestion={rendersuggestion}
         inputProps={inputProps}
         renderInputComponent={renderInputComponent}
+        /* onSuggestionHighlighted={this.onSuggestionHighlighted} */
+        onSuggestionSelected={this.onSuggestionSelected}
+        alwaysRenderSuggestions={true}
       />
     );
   }

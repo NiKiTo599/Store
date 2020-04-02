@@ -1,5 +1,8 @@
 .container-for-search-bar {
-  margin: 2rem 0;
+  margin-top: 2rem;
+  @media screen and (max-width: 768px) {
+    margin-top: 0.5rem;
+  }
   .search-bar {
     width: 40vw;
     height: 3rem;
@@ -9,7 +12,11 @@
     border-left-color: rgb(255, 222, 89);
     border-radius: 2rem;
     outline: none;
+    z-index: 50;
     padding: 1rem;
+    @media screen and (max-width: 768px) {
+      width: 90vw;
+    }
   }
   svg {
     opacity: 0;
@@ -18,14 +25,6 @@
     position: absolute;
     right: 21%;
     top: 10.5%;
-  }
-}
-@media screen and (max-width: 768px) {
-  .container-for-search-bar {
-    margin: 0.5rem;
-    .search-bar {
-      width: 90vw;
-    }
   }
 }
 
@@ -37,12 +36,21 @@
     display: block;
   }
 }
-.container-for-suggestion {
+.react-autosuggest__suggestion {
   display: flex;
-  margin: 0.5rem 0;
   align-items: center;
+  padding: 0.5rem;
+  width: 100%;
+  position: relative;
+  .fa-chevron-right {
+    font-size: 1.5rem;
+    color: #218838;
+    position: absolute;
+    left: 80%;
+    top: 50%;
+  }
   img {
-    width: 6rem;
+    width: 4rem;
     height: auto;
     margin-right: 1rem;
   }
@@ -50,11 +58,47 @@
     display: flex;
     flex-flow: column wrap;
     .suggestion-title {
-      font-size: 1.5rem;
+      font-size: 1.2rem;
+      width: 80%;
+      white-space: nowrap;
+      overflow: hidden;
+      padding: 5px;
+      text-overflow: ellipsis;
+      color: #218838;
+      font-weight: 700;
+    }
+    .suggestion-title:hover {
+      text-decoration: none !important;
     }
     .suggestion-price {
-      font-size: 1.5rem;
+      font-size: 1rem;
       color: #218838;
+      text-decoration: none !important;
     }
   }
+}
+.container-for-suggestion:hover {
+  background-color: rgba(255, 222, 89, 0.76);
+}
+
+.react-autosuggest__suggestions-container {
+  position: relative;
+}
+
+.react-autosuggest__suggestions-list {
+  background-color: rgb(243, 243, 243);
+  -webkit-box-shadow: -1px 118px 122px 34px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: -1px 118px 122px 34px rgba(0, 0, 0, 0.75);
+  box-shadow: -1px 118px 122px 34px rgba(0, 0, 0, 0.75);
+  width: 80%;
+  margin: 0 auto;
+  padding: 0 !important;
+  position: absolute;
+  z-index: 20;
+  left: 10%;
+}
+
+.react-autosuggest__suggestion--highlighted {
+  background-color: rgba(255, 222, 89, 0.76) !important;
+  z-index: 100;
 }
