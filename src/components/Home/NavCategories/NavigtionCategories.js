@@ -9,7 +9,7 @@ import { saveCategories } from "./../../../actions";
 import { graphql } from "react-apollo";
 import { compose } from "recompose";
 import { categoriesQuery } from "./queries";
-import HideMenu from "../../basicComponents/HideMenu";
+import HideMenu, { showMenu } from "../../basicComponents/HideMenu";
 
 class NavigtionCategories extends React.Component {
   shouldComponentUpdate = () => {
@@ -66,6 +66,7 @@ class NavigtionCategories extends React.Component {
                         <li
                           key={index * Math.random() * 100}
                           className="sub-list__item"
+                          onClick={() => showMenu('hide_nav_categories')}
                         >
                           <Link
                             className="nav__link"

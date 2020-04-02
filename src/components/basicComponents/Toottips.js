@@ -3,7 +3,7 @@ import { OverlayTrigger } from "react-bootstrap";
 
 const TooltipComponent = ({ children, text }) => (
   <OverlayTrigger
-    placement="right"
+    placement="right-start"
     delay={{ show: 250, hide: 400 }}
     overlay={
       <div
@@ -11,7 +11,8 @@ const TooltipComponent = ({ children, text }) => (
           backgroundColor: "var(--success)",
           padding: "2px 5px",
           color: "white",
-          borderRadius: 3
+          borderRadius: 3,
+          zIndex: 20
         }}
       >
         {text}

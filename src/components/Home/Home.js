@@ -17,6 +17,7 @@ import { Row, Container, Col, Spinner } from "react-bootstrap";
 import ProductList from "../Products/ProductList";
 import PageList from "../Products/NavigateForPages/PageList";
 import SortSection from "./SortSection/SortSection";
+import { Element } from "react-scroll";
 
 const graphQLProducts = graphql(productsQuery, {
   options: args => {
@@ -124,7 +125,7 @@ class Home extends React.PureComponent {
               )}
 
               <SortSection query={this.query} />
-
+              <Element name="first_navigation" />
               <PageList location={this.props.location} />
               <section className="container-for-products">
                 {!this.state.isLoading ? (

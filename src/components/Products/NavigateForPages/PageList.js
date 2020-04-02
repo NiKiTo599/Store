@@ -66,12 +66,11 @@ class PageList extends React.Component {
     const { page, query } = this.state;
     let count;
     const { width } = window.screen;
-    /*if (this.props.countProducts) {
+    if (this.props.countProducts) {
       count = this.props.countProducts;
     } else {
       count = this.props.data.count;
-    }*/
-    count = 200;
+    }
     const lastPage = Math.ceil(count / 10);
     let reason = this.page === lastPage;
     this.getStylesForButtons(reason);
