@@ -1,0 +1,26 @@
+.section_for_categories {
+  margin: 1.5rem 0;
+  .categories_item_view {
+    a {
+      display: flex;
+      flex-flow: column nowrap;
+      align-items: center;
+      justify-content: center;
+      margin-top: 0.5rem;
+      h6 {
+        color: var(--success);
+        font-size: 1rem;
+        text-align: center;
+        font-weight: 700;
+      }
+      .categories__img {
+        width: 10rem;
+      }
+    }
+  }
+  .categories_item_view:hover {
+    border: 3px solid rgb(255, 222, 89);
+    border-bottom: 3px solid var(--success);
+    border-right: 3px solid var(--success);
+  }
+}

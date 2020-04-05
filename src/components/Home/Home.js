@@ -18,9 +18,10 @@ import ProductList from "../Products/ProductList";
 import PageList from "../Products/NavigateForPages/PageList";
 import SortSection from "./SortSection/SortSection";
 import { Element } from "react-scroll";
+import IconsOfCategories from "./IconsOfCategories";
 
 const graphQLProducts = graphql(productsQuery, {
-  options: args => {
+  options: (args) => {
     const { category_id, page, attributesForSearch, isClicked } = args;
     let values;
     if (isClicked && attributesForSearch) {
@@ -34,10 +35,10 @@ const graphQLProducts = graphql(productsQuery, {
       variables: {
         category_id,
         page,
-        attr: values
-      }
+        attr: values,
+      },
     };
-  }
+  },
 });
 
 class Home extends React.PureComponent {
@@ -50,13 +51,13 @@ class Home extends React.PureComponent {
   }
 
   state = {
-    isLoading: false
+    isLoading: false,
   };
 
   componentDidMount = () => {
-    this.setState({ isLoading: true }, function() {
+    this.setState({ isLoading: true }, function () {
       setTimeout(
-        function() {
+        function () {
           this.setState({ isLoading: false });
         }.bind(this),
         3000
@@ -64,7 +65,7 @@ class Home extends React.PureComponent {
     });
   };
 
-  componentDidUpdate = prevProps => {
+  componentDidUpdate = (prevProps) => {
     if (
       this.props.location.search &&
       this.props.location.search !== prevProps.location.search
@@ -73,9 +74,9 @@ class Home extends React.PureComponent {
       this.query = this.parsedURL.query;
       this.page = this.parsedURL.page;
       this.props.saveProductCategoriesID(this.query, this.page);
-      this.setState({ isLoading: true }, function() {
+      this.setState({ isLoading: true }, function () {
         setTimeout(
-          function() {
+          function () {
             this.setState({ isLoading: false });
           }.bind(this),
           3000
@@ -91,7 +92,7 @@ class Home extends React.PureComponent {
       if (!category) {
         let end = location.search.indexOf("page") - 1;
         let reason = categories[key].find(
-          elem => elem._id === location.search.slice(7, end)
+          (elem) => elem._id === location.search.slice(7, end)
         );
         if (reason) {
           category = key;
@@ -101,7 +102,7 @@ class Home extends React.PureComponent {
     }
     return {
       category,
-      subCategory
+      subCategory,
     };
   };
 
@@ -143,28 +144,30 @@ class Home extends React.PureComponent {
                 location={this.props.location}
               />
             </>
-          ) : null}
+          ) : (
+            <IconsOfCategories />
+          )}
         </Container>
       </Layout>
     );
   }
 }
 
-const mapStateToProps = store => {
+const mapStateToProps = (store) => {
   const { reducer, reducerSortSection } = store;
   return {
     category_id: reducer.category_id,
     page: reducer.page,
     categories: reducer.categories,
     isClicked: reducerSortSection.isClicked,
-    attributesForSearch: reducerSortSection.attributesForSearch
+    attributesForSearch: reducerSortSection.attributesForSearch,
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
     saveProductCategoriesID: (id, page) =>
-      dispatch(saveProductCategoriesID(id, page))
+      dispatch(saveProductCategoriesID(id, page)),
   };
 };
 

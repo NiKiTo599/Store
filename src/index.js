@@ -12,7 +12,7 @@ import store from "./store";
 import { ApolloProvider } from "react-apollo";
 
 const client = new ApolloClient({
-  uri: "http://192.168.0.109:3001/graphql"
+  uri: "http://192.168.0.109:8000/graphql"
 });
 
 ReactDOM.render(
