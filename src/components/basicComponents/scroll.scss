@@ -1,0 +1,13 @@
+.scroll_up {
+  position: fixed;
+  top: 90%;
+  left: 90%;
+  width: 3rem;
+  height: 3rem;
+  background-color: var(--success);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: rgb(255,222,89);
+}
