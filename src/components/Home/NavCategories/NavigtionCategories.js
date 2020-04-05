@@ -45,6 +45,7 @@ class NavigtionCategories extends React.Component {
   render() {
     const { width } = this.props;
     if (this.props.categories) {
+      console.log(this.props.categories)
       const keys = Object.keys(this.props.categories);
       const navCatComponent = (
         <aside className="container-categories">
@@ -66,7 +67,7 @@ class NavigtionCategories extends React.Component {
                         <li
                           key={index * Math.random() * 100}
                           className="sub-list__item"
-                          onClick={() => showMenu('hide_nav_categories')}
+                          onClick={() => showMenu('hide_nav_categories', width)}
                         >
                           <Link
                             className="nav__link"
@@ -84,6 +85,7 @@ class NavigtionCategories extends React.Component {
                   <li
                     key={idx * Math.random() * 100}
                     className="list__main-item"
+                    onClick={() => showMenu('hide_nav_categories', width)}
                   >
                     <Link
                       className="nav__link"
