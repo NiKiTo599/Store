@@ -5,19 +5,24 @@ import NavigtionCategories from "../Home/NavCategories/NavigtionCategories";
 import ContainerForSerch from "../Search/Container";
 import Header from "./Header";
 import Footer from "./Footer";
+import ScrollUp from "../basicComponents/ScrollUp";
 
 class Layout extends React.PureComponent {
   constructor(props) {
     super(props);
-    window.addEventListener("resize", e =>
+    window.addEventListener("resize", (e) =>
       this.setState({
-        width: window.screen.width
+        width: window.screen.width,
       })
+    );
+    window.addEventListener("scroll", () =>
+      this.setState({ scroll: window.pageYOffset })
     );
   }
 
   state = {
-    width: window.screen.width
+    width: window.screen.width,
+    scroll: 0,
   };
 
   render() {
@@ -45,6 +50,7 @@ class Layout extends React.PureComponent {
           </section>
         </main>
         <Footer />
+        <ScrollUp scroll={this.state.scroll} />
       </>
     );
   }

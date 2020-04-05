@@ -16,6 +16,7 @@
     padding: 1rem;
     @media screen and (max-width: 768px) {
       width: 90vw;
+      font-size: 1rem;
     }
   }
   svg {
@@ -48,11 +49,21 @@
     position: absolute;
     left: 80%;
     top: 50%;
+    @media screen and (max-width: 768px) {
+      left: 65%;
+      font-size: 1rem;
+    }
+    @media screen and (max-width: 425px) {
+      left: 50%;
+    }
   }
   img {
     width: 4rem;
     height: auto;
     margin-right: 1rem;
+    @media screen  and (max-width: 768px) {
+      width: 2rem;
+    }
   }
   .suggest-info {
     display: flex;
@@ -66,6 +77,16 @@
       text-overflow: ellipsis;
       color: #218838;
       font-weight: 700;
+      @media screen and (min-width: 768px) and (max-width: 1024px){
+        font-size: 1rem;
+      }
+      @media screen and (max-width: 768px) {
+        font-size: .7rem;
+        width: 70%;
+      }
+      @media screen and (max-width: 425px) {
+        width: 50%;
+      }
     }
     .suggestion-title:hover {
       text-decoration: none !important;
@@ -74,6 +95,12 @@
       font-size: 1rem;
       color: #218838;
       text-decoration: none !important;
+      @media screen and (min-width: 768px) and (max-width: 1024px){
+        font-size: .8rem;
+      }
+      @media screen and (max-width: 768px) {
+        font-size: .5rem;
+      }
     }
   }
 }
