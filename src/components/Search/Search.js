@@ -98,7 +98,6 @@ class Search extends React.Component {
       onChange: handleChange,
       width: width
     };
-    console.log(suggestions)
     return (
       <AutoSuggest
         suggestions={suggestions}

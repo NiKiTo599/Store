@@ -45,7 +45,6 @@ class NavigtionCategories extends React.Component {
   render() {
     const { width } = this.props;
     if (this.props.categories) {
-      console.log(this.props.categories)
       const keys = Object.keys(this.props.categories);
       const navCatComponent = (
         <aside className="container-categories">

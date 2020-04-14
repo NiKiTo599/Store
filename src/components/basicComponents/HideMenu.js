@@ -8,7 +8,7 @@ export const showMenu = (hiddenClass, width) => {
   let w = width ? width : 500;
   const hideMenu = document.querySelector(`.${hiddenClass}`);
   if (hideMenu && w < 900) {
-    document.querySelector("body").classList.toggle("goLeft");
+    //document.querySelector("body").classList.toggle("goLeft");
     hideMenu.classList.toggle("hide_menu-to-left");
   }
 };
