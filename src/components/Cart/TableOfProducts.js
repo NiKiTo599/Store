@@ -27,7 +27,7 @@ class TableOfProducts extends React.Component {
     }
   };
 
-  showNotAll = title => {
+  showNotAll = (title) => {
     return (
       <TooltipComponent text={title}>
         <span>{title.length >= 20 ? `${title.slice(0, 20)}...` : title}</span>
@@ -37,7 +37,7 @@ class TableOfProducts extends React.Component {
 
   changeNumericInput = (value, valueStr, input) => {
     this.setState({
-      [input.id]: value
+      [input.id]: value,
     });
     return value;
   };
@@ -74,7 +74,7 @@ class TableOfProducts extends React.Component {
                         index={idx}
                         className="checkbox_product"
                         variant="success"
-                        onClick={e => e.stopPropagation()}
+                        onClick={(e) => e.stopPropagation()}
                         label=""
                       />
                       <label></label>
@@ -83,7 +83,7 @@ class TableOfProducts extends React.Component {
                   <td>
                     <Link
                       to={`/product?id=${item._id}`}
-                      onClick={e => e.stopPropagation()}
+                      onClick={(e) => e.stopPropagation()}
                       className="cart__item-of-product"
                     >
                       <img
@@ -99,15 +99,11 @@ class TableOfProducts extends React.Component {
                   {width >= 660 ? (
                     <td valign="middle">
                       <div className="container-in-td">
-                        {item.regular_price.slice(
-                          0,
-                          item.regular_price.indexOf("р") - 1
-                        )}{" "}
-                        р.
+                        {item.regular_price} р.
                       </div>
                     </td>
                   ) : null}
-                  <td onClick={e => e.stopPropagation()} valign="middle">
+                  <td onClick={(e) => e.stopPropagation()} valign="middle">
                     <div className="container-in-td">
                       <NumericInput
                         id={idx}
@@ -118,9 +114,7 @@ class TableOfProducts extends React.Component {
                   </td>
                   <td>
                     <div className="container-in-td">
-                      {+item.regular_price
-                        .replace(/\s+/g, "")
-                        .slice(0, item.regular_price.indexOf("р") - 2) *
+                      {item.regular_price *
                         (this.state[idx] ? this.state[idx] : 1)}{" "}
                       р.
                     </div>

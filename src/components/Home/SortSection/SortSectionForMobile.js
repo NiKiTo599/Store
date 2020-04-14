@@ -2,6 +2,8 @@ import React from "react";
 import AttributeSortButton from "./AttributeSortButton";
 import HideMenu from "../../basicComponents/HideMenu";
 
+import InputRange from "react-input-range";
+
 const makeACheckAttribute = (
   { target, currentTarget },
   highlightAttribute,
@@ -37,12 +39,17 @@ const SortSectionForMobile = ({
   query,
   highlightAttribute,
   unHighlightAttribute,
-  closeSort
+  closeSort,
+  productsAttributes,
+  /* changeForPrice, */
+  state,
+  /* prices,
+  propsPrices */
 }) => (
   <HideMenu title="Фильтры" hiddenClass="hide_sort">
     {nameOfCategoryOfAttributes.map((elem, idx) => (
       <div
-        onClick={e =>
+        onClick={(e) =>
           makeACheckAttribute(e, highlightAttribute, unHighlightAttribute)
         }
         className="container_for_sort-attribute"
@@ -61,12 +68,25 @@ const SortSectionForMobile = ({
         ))}
       </div>
     ))}
+    {/* <div className="range_prices">
+      <p className="sort-attribute">Ценовой интервал:</p>
+      <InputRange
+        maxValue={prices.max}
+        minValue={prices.min}
+        value={state.value ? state.value : prices}
+        onChange={(value) => changeForPrice(value)}
+        step={500}
+      />
+    </div> */}
     <AttributeSortButton
       saveFoundProducts={saveFoundProducts}
       arrayOfAllAtributes={arrayOfAllAtributes}
       isSort={isSort}
       isClicked={isClicked}
       query={query}
+      /* prices={propsPrices}
+      primaryPrices={prices}
+      secondaryPrices={state.value ? state.value : prices} */
     />
   </HideMenu>
 );

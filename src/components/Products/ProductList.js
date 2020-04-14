@@ -17,26 +17,31 @@ class ProductList extends React.PureComponent {
       text: "",
       icon: faShoppingCart,
       link: "/cart",
-      linkText: "Перейти в корзину"
-    }
+      linkText: "Перейти в корзину",
+    },
   };
 
   makeNotifications = (e, bool, classSelector) => {
     if (e) {
       const { target, currentTarget } = e;
-      if (target.classList.contains("btn")) {
+      if (
+        target.classList.contains("btn") &&
+        target.innerHTML !== "Нет в наличии"
+      ) {
         const text = currentTarget.querySelector(classSelector).innerHTML;
         this.setState({
           show: bool,
           notification: {
             ...this.state.notification,
-            text: !this.props.cart.some(item => item.name === text) ? `${text} добавлен(а) в корзину` : `${text} уже был(а) добавлен(а) в корзину`
-          }
+            text: !this.props.cart.some((item) => item.name === text)
+              ? `${text} добавлен(а) в корзину`
+              : `${text} уже был(а) добавлен(а) в корзину`,
+          },
         });
       }
     } else {
       this.setState({
-        show: bool
+        show: bool,
       });
     }
   };
@@ -49,7 +54,9 @@ class ProductList extends React.PureComponent {
               <>
                 <Row key={index} className="justify-content-center">
                   <Col
-                    onClick={e => this.makeNotifications(e, true, ".title-of-product h3")}
+                    onClick={(e) =>
+                      this.makeNotifications(e, true, ".title-of-product h3")
+                    }
                     xl={9}
                     md={12}
                   >

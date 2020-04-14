@@ -4,7 +4,7 @@ import {
   GET_COUNT,
   GET_ONE_PRODUCT,
   GET_ATTRIBUTES,
-  SAVE_PRODUCTS
+  SAVE_PRODUCTS,
 } from "./../actions";
 import { ADD_TO_CART, DELETE_FROM_CART } from "../actions/actionsCart";
 import {
@@ -14,7 +14,8 @@ import {
   CLICK_SHOW_SELECTION,
   SAVE_FOUND_PRODUCTS,
   DELETE_ALL_ATTRIBUTES,
-  EXIST_SORT_ATTRIBUTES
+  EXIST_SORT_ATTRIBUTES,
+  SAVE_PRICES,
 } from "../actions/sortSectionAction";
 
 const initialState = {
@@ -25,25 +26,29 @@ const initialState = {
   selectedProducts: [],
   isClicked: false,
   arrayOfAllAtributes: [],
-  isExistAttributes: false
+  isExistAttributes: false,
+  prices: {
+    min: 0,
+    max: 10000000,
+  },
 };
 
 export function reducer(state = initialState, action) {
   switch (action.type) {
     case GET_CATEGORIES:
       return Object.assign({}, state, {
-        categories: action.items
+        categories: action.items,
       });
     case SAVE_PRODUCT_CATEGORY_ID:
       return Object.assign({}, state, {
         category_id: action.category_id,
-        page: action.page
+        page: action.page,
       });
     case GET_COUNT:
       return Object.assign({}, state, { count: action.item });
     case GET_ONE_PRODUCT:
       return Object.assign({}, state, {
-        id: action.id
+        id: action.id,
       });
     case GET_ATTRIBUTES:
       return Object.assign({}, state, { attributes: action.attr });
@@ -80,7 +85,7 @@ export function reducerSortSection(state = initialState, action) {
   switch (action.type) {
     case SAVE_FOUND_PRODUCTS: {
       return Object.assign({}, state, {
-        countProducts: action.num
+        countProducts: action.num,
       });
     }
     case HIGHLIGHT_ATTRIBUTE: {
@@ -97,13 +102,13 @@ export function reducerSortSection(state = initialState, action) {
           arrayOfAllAtributes: arrayOfAllAtributes,
           attributesForSearch: {
             ...state.attributesForSearch,
-            [key]: arr
-          }
+            [key]: arr,
+          },
         });
       }
       return Object.assign({}, state, {
         attributesForSearch: { ...action.attr, ...state.attributesForSearch },
-        arrayOfAllAtributes: arrayOfAllAtributes
+        arrayOfAllAtributes: arrayOfAllAtributes,
       });
     }
     case UNHIGHLIGHT_ATTRIBUTE: {
@@ -121,23 +126,23 @@ export function reducerSortSection(state = initialState, action) {
       return Object.assign({}, state, {
         attributesForSearch: {
           ...state.attributesForSearch,
-          [key]: arr
+          [key]: arr,
         },
-        arrayOfAllAtributes: arrayOfAllAtributes
+        arrayOfAllAtributes: arrayOfAllAtributes,
       });
     }
     case DELETE_ONE_FIELD: {
       const arrayOfAllAtributes = state.arrayOfAllAtributes
         .slice()
         .filter(
-          item => !state.attributesForSearch[action.field].includes(item)
+          (item) => !state.attributesForSearch[action.field].includes(item)
         );
       return Object.assign({}, state, {
         attributesForSearch: {
           ...state.attributesForSearch,
-          [action.field]: []
+          [action.field]: [],
         },
-        arrayOfAllAtributes: arrayOfAllAtributes
+        arrayOfAllAtributes: arrayOfAllAtributes,
       });
     }
     case CLICK_SHOW_SELECTION: {
@@ -146,12 +151,21 @@ export function reducerSortSection(state = initialState, action) {
     case DELETE_ALL_ATTRIBUTES: {
       return Object.assign({}, state, {
         attributesForSearch: {},
-        arrayOfAllAtributes: []
+        arrayOfAllAtributes: [],
+        prices: {
+          min: 0,
+          max: 10000000,
+        },
       });
     }
     case EXIST_SORT_ATTRIBUTES: {
       return Object.assign({}, state, {
-        isExistAttributes: action.isExist
+        isExistAttributes: action.isExist,
+      });
+    }
+    case SAVE_PRICES: {
+      return Object.assign({}, state, {
+        prices: action.prices,
       });
     }
     default:

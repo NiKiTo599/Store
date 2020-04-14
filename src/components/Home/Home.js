@@ -9,7 +9,7 @@ import { compose } from "recompose";
 import { productsQuery } from "./queries";
 
 import { saveProductCategoriesID } from "../../actions";
-
+import { savePrices } from "../../actions/sortSectionAction";
 import { connect } from "react-redux";
 
 import "./index.scss";
@@ -22,7 +22,7 @@ import IconsOfCategories from "./IconsOfCategories";
 
 const graphQLProducts = graphql(productsQuery, {
   options: (args) => {
-    const { category_id, page, attributesForSearch, isClicked } = args;
+    const { category_id, page, attributesForSearch, isClicked, prices } = args;
     let values;
     if (isClicked && attributesForSearch) {
       const keysAttributes = Object.keys(attributesForSearch);
@@ -36,6 +36,7 @@ const graphQLProducts = graphql(productsQuery, {
         category_id,
         page,
         attr: values,
+        /* prices: prices */
       },
     };
   },
@@ -108,8 +109,9 @@ class Home extends React.PureComponent {
 
   render() {
     const { category, subCategory } = this.getCategoryAndSubCategory();
+    console.log(this.props.data.variables)
     return (
-      <Layout>
+      <Layout >
         <Container className="container-for-products">
           {this.props.location.search ? (
             <>
@@ -125,7 +127,7 @@ class Home extends React.PureComponent {
                 </Row>
               )}
 
-              <SortSection query={this.query} />
+              <SortSection query={this.query} prices={this.props.prices} savePrices={this.props.savePrices}/>
               <Element name="first_navigation" />
               <PageList location={this.props.location} />
               <section className="container-for-products">
@@ -161,6 +163,7 @@ const mapStateToProps = (store) => {
     categories: reducer.categories,
     isClicked: reducerSortSection.isClicked,
     attributesForSearch: reducerSortSection.attributesForSearch,
+    prices: reducerSortSection.prices,
   };
 };
 
@@ -168,6 +171,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     saveProductCategoriesID: (id, page) =>
       dispatch(saveProductCategoriesID(id, page)),
+    savePrices: (prices) => dispatch(savePrices(prices)),
   };
 };
 

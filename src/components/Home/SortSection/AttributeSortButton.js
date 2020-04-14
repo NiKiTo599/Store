@@ -7,10 +7,11 @@ import { compose } from "recompose";
 import { countOfFindProducts } from "./queries";
 
 const graphQLSortByAttribute = graphql(countOfFindProducts, {
-  options: ({ arrayOfAllAtributes }) => {
+  options: ({ arrayOfAllAtributes, prices }) => {
     return {
       variables: {
-        attr: arrayOfAllAtributes
+        attr: arrayOfAllAtributes,
+        /* prices */
       }
     };
   }
@@ -28,7 +29,8 @@ class AttributeSortButton extends React.Component {
   };
 
   render() {
-    return this.props.arrayOfAllAtributes.length !== 0 ? (
+    /* const { primaryPrices, secondaryPrices } = this.props; */
+    return this.props.arrayOfAllAtributes.length !== 0 /* || primaryPrices.min !== secondaryPrices.min || primaryPrices.max !== secondaryPrices.max */ ? (
       <>
         <Link to={`/home?query=${this.props.query}&page=1`}>
           <Button onClick={this.handleClickButton} variant="success">

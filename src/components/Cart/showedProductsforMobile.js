@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { Form } from "react-bootstrap";
 import NumericInput from "react-numeric-input";
 
-console.log(NumericInput.style);
 
 const ShowedProductsforMobile = ({
   cart,

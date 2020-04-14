@@ -26,7 +26,6 @@ class Cart extends React.Component {
         arrayForIndexesForDelete.push(checkBox[i].getAttribute("index"));
       }
     }
-    console.log(arrayForIndexesForDelete);
     this.props.deleteFromCart(arrayForIndexesForDelete);
   };
 

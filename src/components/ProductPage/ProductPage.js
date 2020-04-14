@@ -75,7 +75,7 @@ class ProductPage extends React.PureComponent {
   makeNotifications = (e, bool, classSelector) => {
     if (e) {
       const { target } = e;
-      if (target.classList.contains("btn")) {
+      if (target.classList.contains("btn") && target.innerHTML !== 'Нет в наличии') {
         const text = document.querySelector(classSelector).innerHTML;
         this.setState({
           show: bool,
