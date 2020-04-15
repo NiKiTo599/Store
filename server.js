@@ -1,4 +1,5 @@
 // server.js
+require('dotenv').config();
 const express = require("express");
 const graphqlHTTP = require("express-graphql");
 const mongoose = require("mongoose");
@@ -7,17 +8,15 @@ const app = express();
 const cors = require("cors");
 const path = require('path')
 
-const routes = require("./app/routes");
 const insertManyProducts = require("./app/routes/insertManyProducts");
 
-const db = require("./config/db");
 const parser = require("./app/parser/parser");
 
 const PORT = process.env.PORT || 8080;
 
 //parser();
 
-mongoose.connect(process.env.MONGODB_URI || db.url, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(process.env.MONGODB_URI || `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@nikito599-db-8fcy5.mongodb.net/test?retryWrites=true&w=majority`, { useNewUrlParser: true, useUnifiedTopology: true });
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build/'))
@@ -42,6 +41,6 @@ dbConnection.once("open", () => {
 
 app.use(express.static('./build'));
 
-app.listen(8000, err => {
+app.listen(PORT, err => {
   err ? console.log(err) : console.log("Server started!");
 });
