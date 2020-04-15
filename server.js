@@ -7,7 +7,7 @@ const schema = require("./schema/schema");
 const app = express();
 const cors = require("cors");
 const path = require('path');
-const graphiqlExpress = require('apollo-server-express').graphiqlExpress;
+const {ApolloServer} = require('apollo-server-express');
 
 const insertManyProducts = require("./app/routes/insertManyProducts");
 
@@ -29,11 +29,9 @@ if (process.env.NODE_ENV === 'production') {
 
 app.use(cors());
 
-app.use("/graphql", graphqlHTTP({ schema, graphiql: true }));
+//app.use("/graphql", graphqlHTTP({ schema, graphiql: true }));
 
-app.use('/graphiql', graphiqlExpress({
-  endpointURL: '/graphql'
-}));
+
 
 const dbConnection = mongoose.connection;
 dbConnection.on("error", err => {
@@ -45,6 +43,10 @@ dbConnection.once("open", () => {
 });
 
 app.use(express.static('./build'));
+
+const server = new ApolloServer({ schema })
+
+server.applyMiddleware({ app })
 
 app.listen(PORT, err => {
   err ? console.log(err) : console.log("Server started!");
