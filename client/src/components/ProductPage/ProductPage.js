@@ -119,10 +119,7 @@ class ProductPage extends React.PureComponent {
             >
               <div className="product-page__right-container_up">
                 <p className="price-of-product">
-                  {product.regular_price.slice(
-                    0,
-                    product.regular_price.length - 5
-                  )}
+                  {product.regular_price}
                   <i> р.</i>
                 </p>
                 <ButtonCart currentProduct={product} />

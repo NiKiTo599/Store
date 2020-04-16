@@ -40,9 +40,7 @@ const ShowedProductsforMobile = ({
           />
           <div className="container_for_bottom_right">
             <p>
-              {+item.regular_price
-                .replace(/\s+/g, "")
-                .slice(0, item.regular_price.indexOf("р") - 2) *
+              {+item.regular_price *
                 (state[idx] ? state[idx] : 1)}{" "}
               р.
             </p>
