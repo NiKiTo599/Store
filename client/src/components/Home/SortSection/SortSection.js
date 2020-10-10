@@ -25,6 +25,7 @@ import AttributeSortButton from "./AttributeSortButton";
 import TooltipComponent from "../../basicComponents/Toottips";
 import { Row, Col } from "react-bootstrap";
 import SortSectionForMobile from "./SortSectionForMobile";
+import ResetAttributes from "./ResetAttributes";
 
 const graphQLAllAttributes = graphql(allAttributesQuery, {
   options: ({ category_id }) => {
@@ -91,6 +92,8 @@ class SortSection extends React.Component {
     }
   };
 
+  // Range of prices
+  // Don't work corectly
   /* changeForPrice = (value) => {
     this.props.savePrices(value);
     this.setState({ value });
@@ -167,12 +170,18 @@ class SortSection extends React.Component {
               changeForPrice={this.changeForPrice}
               state={this.state}
               propsPrices={this.props.prices}
+              deleteAllAttributes={this.props.deleteAllAttributes}
               /* prices={prices} */
             />
           ) : (
             <Row>
               <Col>
                 <div className="container-for-sort">
+                  <ResetAttributes
+                    arrayOfAllAtributes={this.props.arrayOfAllAtributes}
+                    isClicked={this.props.isClicked}
+                    deleteAllAttributes={this.props.deleteAllAttributes}
+                  />
                   {keys.map((elem, index) => (
                     <p
                       key={index}

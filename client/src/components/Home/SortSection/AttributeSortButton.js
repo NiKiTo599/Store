@@ -34,7 +34,7 @@ class AttributeSortButton extends React.Component {
       <>
         <Link to={`/home?query=${this.props.query}&page=1`}>
           <Button onClick={this.handleClickButton} variant="success">
-            {this.props.isClicked ? "Сбросить фильтры" : "Показать выбранные"}
+            {this.props.isClicked ? "Показать без фильтров" : "Показать выбранные"}
           </Button>
         </Link>
 

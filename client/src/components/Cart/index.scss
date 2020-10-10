@@ -55,6 +55,7 @@
 
 .react-numeric-input {
   width: 50%;
+  cursor: pointer !important;
   @media screen and (max-width: 1024px) and (min-width: 581px) {
     width: 100%;
   }

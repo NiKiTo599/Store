@@ -3,6 +3,7 @@ import AttributeSortButton from "./AttributeSortButton";
 import HideMenu from "../../basicComponents/HideMenu";
 
 import InputRange from "react-input-range";
+import ResetAttributes from "./ResetAttributes";
 
 const makeACheckAttribute = (
   { target, currentTarget },
@@ -39,6 +40,7 @@ const SortSectionForMobile = ({
   query,
   highlightAttribute,
   unHighlightAttribute,
+  deleteAllAttributes,
   closeSort,
   productsAttributes,
   /* changeForPrice, */
@@ -78,6 +80,11 @@ const SortSectionForMobile = ({
         step={500}
       />
     </div> */}
+    <ResetAttributes
+      arrayOfAllAtributes={arrayOfAllAtributes}
+      isClicked={isClicked}
+      deleteAllAttributes={deleteAllAttributes}
+    />
     <AttributeSortButton
       saveFoundProducts={saveFoundProducts}
       arrayOfAllAtributes={arrayOfAllAtributes}

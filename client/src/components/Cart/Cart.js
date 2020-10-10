@@ -11,6 +11,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashAlt, faCheckSquare } from "@fortawesome/free-solid-svg-icons";
 import { InputGroup, Row, Col } from "react-bootstrap";
 import TooltipComponent from "../basicComponents/Toottips";
+import { animateScroll } from 'react-scroll'
 
 class Cart extends React.Component {
   state = {
@@ -31,6 +32,7 @@ class Cart extends React.Component {
 
   render() {
     const { width } = window.screen;
+    animateScroll.scrollToTop();
     return (
       <Layout>
         <div className="container_cart">
